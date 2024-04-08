@@ -5,9 +5,7 @@
             <MySearch class="q-my-md"></MySearch>
             <q-scroll-area style="height: 550px;">
                 <q-list class="list">
-                    <MyItem></MyItem>
-                    <MyItem></MyItem>
-                    <MyItem></MyItem>
+                    <MyItem v-for="item in transactions" :item="item"></MyItem>
                 </q-list>
             </q-scroll-area>
             <q-page-sticky position="bottom-left" :offset="[10, 0]">
@@ -24,6 +22,12 @@ import MyFooter from '@/components/MyFooter.vue'
 import MySearch from '@/components/MySearch.vue';
 import MyItem from '@/components/MyItem.vue';
 import MyButton from '@/components/MyButton.vue';
+import { useStore } from '@/stores/store.js'
+
+const store = useStore()
+
+const transactions = store.transactions
+console.log(transactions)
 
 const btnCreate = () => {
     

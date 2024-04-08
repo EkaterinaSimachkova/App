@@ -21,10 +21,12 @@ import MyFooter from '@/components/MyFooter.vue'
 import MyCard from '@/components/MyCard.vue';
 import MyInput from '@/components/MyInput.vue';
 import MySelect from '@/components/MySelect.vue';
+import { useStore } from '@/stores/store.js'
 
-const options = [
-  'Google', 'Facebook', 'Twitter', 'Apple', 'Oracle'
-]
+const store = useStore()
+
+const options = store.currencies.map(el => el.name)
+console.log(options)
 
 const inputUpdate = (value) => {
     console.log(value)
@@ -51,4 +53,4 @@ const selectUpdate = (value) => {
 .input {
   width: calc(100% - 130px);
 }
-</style>
+</style>@/queries/getCategories.js

@@ -3,9 +3,7 @@
         <MySearch class="q-my-sm"></MySearch>
         <q-scroll-area style="height: 550px;">
             <div class="list">
-                <MyCard></MyCard>
-                <MyCard></MyCard>
-                <MyCard></MyCard>
+                <MyCard v-for="item in trips" :item="item"></MyCard>
             </div>
         </q-scroll-area>
         <q-page-sticky position="bottom-left" :offset="[10, 0]">
@@ -18,7 +16,15 @@
 import MySearch from '@/components/MySearch.vue';
 import MyButton from '@/components/MyButton.vue';
 import MyCard from '@/components/MyCard.vue';
+import { useStore } from '@/stores/store.js'
 
+const store = useStore()
+
+const trips = store.trips
+console.log(trips)
+
+const trip = store.trips.filter(trip => trip.id == '1')
+console.log(trip)
 
 const btnCreate = () => {
     

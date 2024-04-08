@@ -7,8 +7,8 @@
         </q-item-section>
 
         <q-item-section>
-            <q-item-label class="text-deep-purple">title</q-item-label>
-            <q-item-label caption>text</q-item-label>
+            <q-item-label class="text-deep-purple">{{ item.name }}</q-item-label>
+            <q-item-label caption>{{ item.description }}</q-item-label>
         </q-item-section>
 
         <q-item-section side>
@@ -18,8 +18,8 @@
     
     <q-item v-else-if="type=='withToggle'" tag="label" v-ripple class="item">
         <q-item-section>
-            <q-item-label class="text-deep-purple">title</q-item-label>
-            <q-item-label caption>limit</q-item-label>
+            <q-item-label class="text-deep-purple">{{ item.name }}</q-item-label>
+            <q-item-label caption>{{ item.limit }}</q-item-label>
         </q-item-section>
 
         <q-item-section side>
@@ -29,8 +29,8 @@
 
     <q-item v-else clickable v-ripple class="item">
         <q-item-section>
-            <q-item-label class="text-deep-purple">title</q-item-label>
-            <q-item-label caption>date and cost</q-item-label>
+            <q-item-label class="text-deep-purple">{{ item.name }}</q-item-label>
+            <q-item-label caption>{{ item.date }}  {{ item.cost }}</q-item-label>
         </q-item-section>
         
         <q-item-section side>
@@ -46,6 +46,10 @@ const props = defineProps({
     type: {
         type: String,
         require: false
+    },
+    item: {
+        type: Object,
+        require: true
     }
 })
 </script>

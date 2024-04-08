@@ -8,11 +8,11 @@
       <q-card-section>
         <div class="row justify-between">
             <div>
-                <div class="text-h6 text-deep-purple">Title</div>
-                <div class="text-subtitle1">Subtitle</div>
+                <div class="text-h6 text-deep-purple">{{ item.name }}</div>
+                <div class="text-subtitle1">{{ item.description }}</div>
             </div>
             <div>
-                <div class="text-subtitle1 text-green">Title</div>
+                <div class="text-subtitle1 text-green">{{ item.budget }}</div>
                 <MyButton v-if="!withInfo" :type="'arrow'"></MyButton> 
             </div>
         </div>
@@ -35,6 +35,10 @@ const props = defineProps({
     withInfo: {
         type: Boolean,
         require: false
+    },
+    item: {
+        type: Object,
+        require: true
     }
 })
 </script>
