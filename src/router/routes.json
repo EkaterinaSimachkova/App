@@ -1,0 +1,6 @@
+{
+  "LOGIN_PAGE_PATH": "/login",
+  "LOGIN_PAGE_NAME": "login",
+  "REGISTER_PAGE_PATH": "/register",
+  "REGISTER_PAGE_NAME": "register"
+}

@@ -1,95 +1,119 @@
 <template>
-    <q-layout>
-        <q-page-container>
-            <div class="my-image">
-                <div class="row items-center q-pa-md">
-                    <q-space />
-                    <MyButton :type="'close-bg'"></MyButton>
-                </div>
+  <q-layout>
+    <q-page-container>
+      <div class="my-image">
+        <div class="row items-center q-pa-md">
+          <q-space />
+          <MyButton :type="'close-bg'"></MyButton>
+        </div>
 
-                <MyButton class="button" :type="'edit'" @btn-click="btnEdit"></MyButton>
+        <MyButton class="button" :type="'edit'" @btn-click="btnEdit"></MyButton>
+      </div>
+
+      <div class="my-layout">
+        <div class="q-mx-lg q-pt-xl">
+          <div class="q-gutter-y-lg">
+            <MyInput
+              class="input"
+              :label="'Название'"
+              @change-value="data['name'] = $event"
+            ></MyInput>
+            <MyInput
+              class="input"
+              :label="'Бюджет'"
+              @change-value="data['budget'] = +$event"
+            ></MyInput>
+            <div class="row no-wrap q-gutter-x-sm">
+              <MyInput
+                class="input"
+                :label="'Дата начала'"
+                @change-value="data['start_date'] = $event"
+              ></MyInput>
+              <MyInput
+                class="input"
+                :label="'Дата окончания'"
+                @change-value="data['end_date'] = $event"
+              ></MyInput>
             </div>
+            <MyInput
+              class="input"
+              :label="'Лимит на день'"
+              @change-value="data['day_limit'] = +$event"
+            ></MyInput>
+            <MyInput
+              class="input"
+              :type="'textarea'"
+              :label="'Описание'"
+              @change-value="data['description'] = $event"
+            ></MyInput>
+          </div>
 
-            <div class="my-layout">
-                <div class="q-mx-lg q-pt-xl">
-                    <div class="q-gutter-y-lg">
-                        <MyInput class="input" :label="'Название'" @change-value="data['name']=$event"></MyInput>
-                        <MyInput class="input" :label="'Бюджет'" @change-value="data['budget']=+$event"></MyInput>
-                        <div class="row no-wrap q-gutter-x-sm">
-                            <MyInput class="input" :label="'Дата начала'" @change-value="data['start_date']=$event"></MyInput>
-                            <MyInput class="input" :label="'Дата окончания'" @change-value="data['end_date']=$event"></MyInput>
-                        </div>
-                        <MyInput class="input" :label="'Лимит на день'" @change-value="data['day_limit']=+$event"></MyInput>
-                        <MyInput class="input" :type="'textarea'" :label="'Описание'" @change-value="data['description']=$event"></MyInput>
-                    </div>
-
-                    <div class="row justify-end items-end q-mt-lg q-gutter-sm">
-                        <MyButton :icon-name="'edit'" :label="'Управлять категориями'"></MyButton>
-                        <MyButton :label="'Сохранить'" @btn-click="btnSubmit"></MyButton>
-                    </div>
-                </div>
-            </div>
-        </q-page-container>
-    </q-layout>
+          <div class="row justify-end items-end q-mt-lg q-gutter-sm">
+            <MyButton
+              :icon-name="'edit'"
+              :label="'Управлять категориями'"
+            ></MyButton>
+            <MyButton :label="'Сохранить'" @btn-click="btnSubmit"></MyButton>
+          </div>
+        </div>
+      </div>
+    </q-page-container>
+  </q-layout>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import MyButton from '@/components/MyButton.vue';
-import MyInput from '@/components/MyInput.vue';
-import postData from '@/queries/postData.js';
+import { ref } from "vue";
+import { MyButton } from "@/components";
+import MyInput from "@/components/MyInput.vue";
+import postData from "@/queries/postData.js";
 
 const props = defineProps({
-    title: {
-        type: String,
-        require: true
-    },
-})
+  title: {
+    type: String,
+    require: true,
+  },
+});
 
-const btnEdit = () => {
-    
-}
+const btnEdit = () => {};
 
 const data = {
-    name: null,
-    budget: null,
-    start_date: null,
-    end_date: null,
-    day_limit: null,
-    description: null,
-}
-console.log(data)
+  name: null,
+  budget: null,
+  start_date: null,
+  end_date: null,
+  day_limit: null,
+  description: null,
+};
+console.log(data);
 
 const btnSubmit = () => {
-    console.log(data)
-    postData('trips/2/edit', data).then()
-}
-
+  console.log(data);
+  postData("trips/2/edit", data).then();
+};
 </script>
 
 <style scoped>
 .button {
-    left: 12px;
-    top: 90px;
+  left: 12px;
+  top: 90px;
 
-    width: 46px;
-    height: 46px;
+  width: 46px;
+  height: 46px;
 
-    /*opacity: 70%;*/
-
+  /*opacity: 70%;*/
 }
 .my-layout {
-    position: absolute;
-    top: 225px;
-    background-color: white;
-    border-radius: 50px 50px 0 0;
+  position: absolute;
+  top: 225px;
+  background-color: white;
+  border-radius: 50px 50px 0 0;
 }
 .my-image {
-    height: 275px; 
+  height: 275px;
 
-    background-image: url("https://cdn.quasar.dev/img/parallax2.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size:  cover;
+  background-image: url("https://cdn.quasar.dev/img/parallax2.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-</style> 
+</style>
