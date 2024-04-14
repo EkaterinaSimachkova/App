@@ -41,7 +41,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import MyToggle from './MyToggle.vue';
+import { MyToggle } from '@/components';
 const props = defineProps({
     type: {
         type: String,

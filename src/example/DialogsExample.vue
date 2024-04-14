@@ -10,8 +10,7 @@
 </template>
 
 <script setup>
-import MyDialog from '@/components/MyDialog.vue';
-import MyPromt from '@/components/MyPromt.vue';
+import { MyPromt, MyDialog} from "@/components";
 
 
 

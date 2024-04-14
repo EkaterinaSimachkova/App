@@ -10,8 +10,7 @@
 </template>
 
 <script setup>
-import MyCard from '@/components/MyCard.vue';
-import MyCarousel from '@/components/MyCarousel.vue';
+import { MyCard, MyCarousel } from "@/components";
 
 
 

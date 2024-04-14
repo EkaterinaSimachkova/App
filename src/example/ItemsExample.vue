@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import MyItem from '@/components/MyItem.vue';
+import { MyItem } from "@/components";
 </script>
 
 <style scoped>

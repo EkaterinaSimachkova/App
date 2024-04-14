@@ -1,5 +1,4 @@
 <template>
-    <q-layout view="lHh lpr lFf">
         <MyHeader :title="'Профиль'"></MyHeader>
         <q-page-container>
             <MyTabs @change-tab="tabUpdate"></MyTabs>
@@ -10,16 +9,13 @@
             </q-tab-panels>
         </q-page-container>
         <MyFooter></MyFooter>
-    </q-layout>
 </template>
 
 <script setup>
-import MyHeader from '@/components/MyHeader.vue'
-import MyFooter from '@/components/MyFooter.vue'
-import MyTabs from '@/components/MyTabs.vue'
+import { MyHeader, MyFooter, MyTabs } from '@/components'
 import ProfileTab from '@/pages/ProfileTab.vue'
 import CategoriesTab from '@/pages/CategoriesTab.vue'
-import TripsTab from './TripsTab.vue'
+import TripsTab from '@/pages/TripsTab.vue'
 
 
 import { ref } from 'vue'
