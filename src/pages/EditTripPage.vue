@@ -16,10 +16,10 @@
                         <MyInput class="input" :label="'Название'" @change-value="data['name']=$event"></MyInput>
                         <MyInput class="input" :label="'Бюджет'" @change-value="data['budget']=+$event"></MyInput>
                         <div class="row no-wrap q-gutter-x-sm">
-                            <MyInput class="input" :label="'Дата начала'" @change-value="data['start_date']=$event"></MyInput>
-                            <MyInput class="input" :label="'Дата окончания'" @change-value="data['end_date']=$event"></MyInput>
+                            <MyInput class="input" :label="'Дата начала'" @change-value="data['startDate']=$event"></MyInput>
+                            <MyInput class="input" :label="'Дата окончания'" @change-value="data['endDate']=$event"></MyInput>
                         </div>
-                        <MyInput class="input" :label="'Лимит на день'" @change-value="data['day_limit']=+$event"></MyInput>
+                        <MyInput class="input" :label="'Лимит на день'" @change-value="data['dayLimit']=+$event"></MyInput>
                         <MyInput class="input" :type="'textarea'" :label="'Описание'" @change-value="data['description']=$event"></MyInput>
                     </div>
 
@@ -53,16 +53,16 @@ const btnEdit = () => {
 const data = {
     name: null,
     budget: null,
-    start_date: null,
-    end_date: null,
-    day_limit: null,
+    startDate: null,
+    endDate: null,
+    dayLimit: null,
     description: null,
 }
 console.log(data)
 
 const btnSubmit = () => {
     console.log(data)
-    postData('trips/2/edit', data).then()
+    //postData('trips/2/edit', data).then()
 }
 
 </script>

@@ -2,7 +2,11 @@ import axios from 'axios';
 
 export default async function postData(path, data) {
     try{
-        const response = await axios.post(`http://localhost:9090/${path}`, data)
+        const response = await axios.post(`http://localhost:9090/${path}`, JSON.stringify(data), {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
         return response
     } catch(error) {
         if (error.response) {
