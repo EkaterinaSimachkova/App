@@ -50,18 +50,6 @@ const btnEdit = () => {};
 </script>
 
 <style scoped>
-.my-layout {
-  position: absolute;
-  top: 275px;
-  background-color: white;
-  border-radius: 50px 50px 0 0;
-}
-.my-image {
-  height: 325px;
+@import "./index.css";
 
-  background-image: url("https://cdn.quasar.dev/img/parallax2.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
 </style>

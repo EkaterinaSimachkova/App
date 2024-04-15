@@ -61,19 +61,6 @@ const btnEdit = () => {};
 </script>
 
 <style scoped>
-.button {
-  left: 12px;
-  bottom: 50px;
+@import "./index.css";
 
-  width: 40px;
-  height: 40px;
-
-  /*opacity: 70%;*/
-}
-.image {
-  height: 250px;
-  width: 150px;
-
-  border-radius: 25px;
-}
 </style>

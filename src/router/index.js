@@ -1,9 +1,7 @@
 // import { markRaw } from "vue";
 // import { RouterView } from "vue-router";
 
-import Welcome from "@/layouts/Welcome.vue";
-import Default from "@/layouts/Default.vue";
-import Plain from "@/layouts/Plain.vue";
+import { Default, Plain, Welcome } from "@/layouts";
 import { createRouter, createWebHistory } from "vue-router";
 import {
   LOGIN_PAGE_PATH,
@@ -31,7 +29,6 @@ const routes = [
     path: LOGIN_PAGE_PATH,
     name: LOGIN_PAGE_NAME,
     component: () => import("@/pages/LoginPage"),
-    props: true,
     meta: { layout: { component: Welcome } },
   },
   {
@@ -44,33 +41,33 @@ const routes = [
     path: MAIN_PAGE_PATH,
     name: MAIN_PAGE_NAME,
     component: () => import("@/pages/MainPage"),
-    props: true,
+    props: {title: "Главная"},
     meta: { layout: { component: Default } },
   },
   {
     path: USER_PAGE_PATH,
     name: USER_PAGE_NAME,
     component: () => import("@/pages/UserPage"),
+    props: {title: "Профиль"},
     meta: { layout: { component: Default } },
   },
   {
     path: EXPENSES_PAGE_PATH,
     name: EXPENSES_PAGE_NAME,
     component: () => import("@/pages/ExpensesPage"),
+    props: {title: "Расходы"},
     meta: { layout: { component: Default } },
   },
   {
     path: TRIP_PAGE_PATH,
     name: TRIP_PAGE_NAME,
     component: () => import("@/pages/TripPage"),
-    props: true,
     meta: { layout: { component: Plain } },
   },
   {
     path: TRANSACTION_PAGE_PATH,
     name: TRANSACTION_PAGE_NAME,
     component: () => import("@/pages/TransactionPage"),
-    props: true,
     meta: { layout: { component: Plain } },
   },
   {

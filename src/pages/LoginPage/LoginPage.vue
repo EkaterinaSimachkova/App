@@ -30,7 +30,7 @@
 
 <script setup>
 import { MyButton, MyInput } from "@/components";
-import router from "@/router/router";
+import router from "@/router/index";
 
 const btnLogIn = () => {
   router.push(`/main`);
@@ -46,12 +46,6 @@ const inputUpdate = (value) => {
 </script>
 
 <style scoped>
-.content {
-  width: 100%;
-}
+@import "./index.css";
 
-.button {
-  width: 100%;
-  margin-bottom: 15px;
-}
 </style>

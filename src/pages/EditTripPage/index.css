@@ -1,0 +1,23 @@
+.button {
+left: 12px;
+top: 90px;
+
+width: 46px;
+height: 46px;
+
+/*opacity: 70%;*/
+}
+.my-layout {
+position: absolute;
+top: 225px;
+background-color: white;
+border-radius: 50px 50px 0 0;
+}
+.my-image {
+height: 275px;
+
+background-image: url("https://cdn.quasar.dev/img/parallax2.jpg");
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+}

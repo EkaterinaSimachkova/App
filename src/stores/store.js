@@ -4,10 +4,24 @@ import { ref, reactive, computed, watch } from 'vue'
 import getData from '@/queries/getData.js';
 
 export const useStore = defineStore('store', () => {
+    const user = ref({
+        id: 1,
+        login: 'Ekaterina',
+        name: 'Kate',
+        password: '0609'
+    })
+
     const categories = ref([{
         id: 1,
         name: 'food',
         description: null,
+    }])
+
+    const tripsCategories = ref([{
+        id: 1,
+        limit: 100,
+        tripId: 1,
+        categoryId: 1
     }])
 
     const currencies = ref([{
@@ -26,20 +40,65 @@ export const useStore = defineStore('store', () => {
     const trips = ref([{
         id: 1,
         name: 'Paris',
-        description: null,
         budget: 100000,
         dayLimit: 1000,
         startDate: null,
         endDate: null,
+        description: null,
     }])
 
     const transactions = ref([{
         id: 1,
         name: 'dinner',
-        description: null,
         cost: 1000,
         date: null,
+        description: null,
     }])
+
+
+    const getCategories = () => {
+        return categories
+    }
+
+    const getCategoriesNames = () => {
+        return categories.map(el => el.name)
+    }
+
+    const getCategoryById = (id) => {
+        return categories.find(el => el.id == id)
+    }
+
+    const getCurrencies = () => {
+        return currencies
+    }
+
+    const getCurrenciesNames = () => {
+        return currencies.map(el => el.name)
+    }
+
+    const getCurrencyById = (id) => {
+        return currencies.find(el => el.id == id)
+    }
+
+    const getTrips = () => {
+        return trips
+    }
+
+    const getTripsNames = () => {
+        return trips.map(el => el.name)
+    }
+
+    const getTripById = (id) => {
+        return trips.find(el => el.id == id)
+    }
+
+    const getTransactions = () => {
+        return transactions
+    }
+
+    const getTransactionById = (id) => {
+        return transactions.find(el => el.id == id)
+    }
 
     /*
     const categories = ref([])
@@ -70,9 +129,22 @@ export const useStore = defineStore('store', () => {
     */
    
     return {
+        user,
         categories,
+        tripsCategories,
         currencies,
         trips,
-        transactions
+        transactions,
+        getCategories,
+        getCategoriesNames,
+        getCategoryById,
+        getCurrencies,
+        getCurrenciesNames,
+        getCurrencyById,
+        getTrips,
+        getTripsNames,
+        getTripById,
+        getTransactions,
+        getTransactionById,
     }
 })

@@ -1,0 +1,15 @@
+.content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    row-gap: 10px;
+    column-gap: 5px;
+  
+    margin-bottom: 25px;
+}
+.select {
+    min-width: 120px;
+}
+.input {
+    width: calc(100% - 130px);
+}

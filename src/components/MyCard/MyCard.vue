@@ -1,7 +1,7 @@
 <template>
   <q-card class="card" flat bordered>
     <div v-if="withInfo" class="text-h5 text-bold text-deep-purple-10 q-ma-md">
-      Title
+      Текущее путешествие
     </div>
     <q-img src="https://cdn.quasar.dev/img/parallax2.jpg" />
 

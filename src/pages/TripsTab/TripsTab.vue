@@ -33,11 +33,6 @@ const btnCreate = () => {};
 </script>
 
 <style scoped>
-.list {
-  display: flex;
-  flex-direction: column;
-  row-gap: 15px;
+@import "./index.css";
 
-  margin-top: 20px;
-}
 </style>

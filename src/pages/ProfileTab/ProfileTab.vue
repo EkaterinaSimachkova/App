@@ -42,30 +42,31 @@ const inputUpdate = (value) => {
 
 <style scoped>
 .button {
-  left: 12px;
-  bottom: 58px;
-
-  width: 46px;
-  height: 46px;
-
-  /*opacity: 70%;*/
+    left: 12px;
+    top: -58px;
+    
+    width: 46px;
+    height: 46px;
+    
+    /*opacity: 70%;*/
 }
 .image {
-  width: 175px;
-  height: 175px;
-
-  border-radius: 25px;
+    width: 175px;
+    height: 175px;
+    
+    border-radius: 25px;
 }
 .info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  row-gap: 25px;
-
-  width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 25px;
+    
+    width: 80%;
 }
 .content {
-  width: 100%;
+    width: 100%;
+    margin-bottom: 0px;
 }
 </style>

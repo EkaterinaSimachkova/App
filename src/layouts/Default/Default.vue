@@ -1,8 +1,6 @@
 <template>
   <q-layout view="lHh lpr lFf">
-    <q-header>
-      <slot name="header"></slot>
-    </q-header>
+    <MyHeader :title="$route.matched[0].props.default.title"></MyHeader>
     <q-page-container>
       <router-view
         class="layout-view col-grow"
@@ -10,10 +8,12 @@
         :key="$route.path"
       />
     </q-page-container>
-    <slot name="footer"></slot>
+    <MyFooter></MyFooter>
   </q-layout>
 </template>
 
-<script setup></script>
+<script setup>
+import { MyFooter, MyHeader } from "@/components";
+</script>
 
 <style scoped></style>
