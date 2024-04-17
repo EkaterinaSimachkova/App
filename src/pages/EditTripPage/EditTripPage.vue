@@ -13,34 +13,37 @@
       <div class="q-mx-lg q-pt-xl">
         <div class="q-gutter-y-lg">
           <MyInput
-            class="input"
             :label="'Название'"
             @change-value="data['name'] = $event"
           ></MyInput>
-          <MyInput
-            class="input"
-            :label="'Бюджет'"
-            @change-value="data['budget'] = +$event"
-          ></MyInput>
-          <div class="row no-wrap q-gutter-x-sm">
+          <div class="row q-gutter-x-sm">
             <MyInput
               class="input"
+              :label="'Бюджет'"
+              @change-value="data['budget'] = +$event"
+            ></MyInput>
+            <MySelect
+              class="select"
+              :options="options"
+              :label="'Валюта'"
+              @change-value="selectUpdate"
+            ></MySelect>
+          </div>
+          <div class="row no-wrap q-gutter-x-sm">
+            <MyInput
               :label="'Дата начала'"
               @change-value="data['start_date'] = $event"
             ></MyInput>
             <MyInput
-              class="input"
               :label="'Дата окончания'"
               @change-value="data['end_date'] = $event"
             ></MyInput>
           </div>
           <MyInput
-            class="input"
             :label="'Лимит на день'"
             @change-value="data['day_limit'] = +$event"
           ></MyInput>
           <MyInput
-            class="input"
             :type="'textarea'"
             :label="'Описание'"
             @change-value="data['description'] = $event"
@@ -61,7 +64,7 @@
 
 <script setup>
 import { ref } from "vue";
-import { MyButton, MyInput } from "@/components";
+import { MyButton, MyInput, MySelect } from "@/components";
 import postData from "@/queries/postData.js";
 
 const props = defineProps({
@@ -88,7 +91,8 @@ const btnSubmit = () => {
     console.log(data);
     //postData('trips/2/edit', data).then();
 };
-
+const options = store.getCurrenciesNames();
+console.log(options);
 </script>
 
 <style scoped>

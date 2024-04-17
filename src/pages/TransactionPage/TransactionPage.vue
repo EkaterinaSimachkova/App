@@ -40,9 +40,14 @@
       </div>
     </div>
 
-    <div class="row items-center q-px-lg q-pt-xl q-mt-xl">
+    <div class="row items-center q-px-lg q-pt-xl q-mt-xl q-gutter-x-md">
       <q-space />
       <MyButton :icon-name="'edit'" :label="'Редактировать'"></MyButton>
+      <MyButton
+        class="btn"
+        :label="'Удалить'"
+        :type="'cancel'"
+      ></MyButton>
     </div>
   </q-page>
 </template>

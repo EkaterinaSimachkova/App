@@ -13,3 +13,7 @@
 
     border-radius: 25px;
 }
+
+.btn {
+    min-width: 120px;
+}

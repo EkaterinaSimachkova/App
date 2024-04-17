@@ -26,9 +26,13 @@
 
         <MyCarousel></MyCarousel>
 
-        <div class="row items-center q-mt-xl">
-          <q-space />
+        <div class="row justify-end items-center q-mt-xl q-gutter-x-sm">
           <MyButton :icon-name="'edit'" :label="'Редактировать'"></MyButton>
+          <MyButton
+            class="btn"
+            :label="'Удалить'"
+            :type="'cancel'"
+          ></MyButton>
         </div>
       </div>
     </div>

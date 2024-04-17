@@ -4,7 +4,7 @@
     <q-scroll-area style="height: 550px">
       <q-list class="list">
         <MyItem
-          v-for="item in categories"
+          v-for="item in categoriesList"
           :item="item"
           :type="'withAvatar'"
         ></MyItem>
@@ -24,11 +24,13 @@
 <script setup>
 import { MyButton, MyItem, MySearch } from "@/components";
 import { useStore } from "@/stores/store.js";
+import { storeToRefs } from "pinia";
 
 const store = useStore();
+const { categories } = storeToRefs(store);
 
-const categories = store.categories;
-console.log(categories);
+const categoriesList = categories.value;
+console.log(categoriesList);
 
 const btnCreate = () => {};
 </script>

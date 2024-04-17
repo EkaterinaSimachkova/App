@@ -57,11 +57,19 @@
               :label="'Название'"
               @change-value="inputUpdate"
             ></MyInput>
-            <MyInput
-              class="content"
-              :label="'Сумма'"
-              @change-value="inputUpdate"
-            ></MyInput>
+            <div class="row q-gutter-x-xs">
+              <MyInput
+                class="input"
+                :label="'Сумма'"
+                @change-value="inputUpdate"
+              ></MyInput>
+              <MySelect
+                class="select"
+                :options="options"
+                :label="'Валюта'"
+                @change-value="selectUpdate"
+              ></MySelect>
+            </div>
             <MyInput
               class="content"
               :label="'Дата'"
@@ -91,7 +99,12 @@
 
       <q-card-actions align="right">
         <MyButton class="action" :label="'Сохранить'" :type="'save'"></MyButton>
-        <MyButton
+        <MyButton v-if="type == 'category'"
+          class="action"
+          :label="'Удалить'"
+          :type="'cancel'"
+        ></MyButton>
+        <MyButton v-else
           class="action"
           :label="'Отменить'"
           :type="'cancel'"
@@ -180,5 +193,11 @@ const options = ["Google", "Facebook", "Twitter", "Apple", "Oracle"];
   margin-top: 15px;
   min-width: 300px;
   min-height: 500px;
+}
+.select {
+    min-width: 120px;
+}
+.input {
+    width: calc(100% - 130px);
 }
 </style>

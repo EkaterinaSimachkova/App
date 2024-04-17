@@ -56,49 +56,35 @@ export const useStore = defineStore('store', () => {
     }])
 
 
-    const getCategories = () => {
-        return categories
-    }
-
     const getCategoriesNames = () => {
-        return categories.map(el => el.name)
+        return categories.value.map(el => el.name)
     }
 
     const getCategoryById = (id) => {
-        return categories.find(el => el.id == id)
-    }
-
-    const getCurrencies = () => {
-        return currencies
+        return categories.value.find(el => el.id == id)
     }
 
     const getCurrenciesNames = () => {
-        return currencies.map(el => el.name)
+        return currencies.value.map(el => el.name)
     }
 
     const getCurrencyById = (id) => {
-        return currencies.find(el => el.id == id)
-    }
-
-    const getTrips = () => {
-        return trips
+        return currencies.value.find(el => el.id == id)
     }
 
     const getTripsNames = () => {
-        return trips.map(el => el.name)
+        return trips.value.map(el => el.name)
     }
 
     const getTripById = (id) => {
-        return trips.find(el => el.id == id)
-    }
-
-    const getTransactions = () => {
-        return transactions
+        return trips.value.find(el => el.id == id)
     }
 
     const getTransactionById = (id) => {
-        return transactions.find(el => el.id == id)
+        return transactions.value.find(el => el.id == id)
     }
+
+    
 
     /*
     const categories = ref([])
@@ -135,16 +121,12 @@ export const useStore = defineStore('store', () => {
         currencies,
         trips,
         transactions,
-        getCategories,
         getCategoriesNames,
         getCategoryById,
-        getCurrencies,
         getCurrenciesNames,
         getCurrencyById,
-        getTrips,
         getTripsNames,
         getTripById,
-        getTransactions,
         getTransactionById,
     }
 })

@@ -3,7 +3,7 @@
     <MySearch class="q-my-md"></MySearch>
     <q-scroll-area style="height: 550px">
       <q-list class="list">
-        <MyItem v-for="item in transactions" :item="item"></MyItem>
+        <MyItem v-for="item in transactionsList" :item="item"></MyItem>
       </q-list>
     </q-scroll-area>
     <q-page-sticky position="bottom-left" :offset="[10, 0]">
@@ -20,11 +20,13 @@
 <script setup>
 import { MyButton, MySearch, MyItem } from "@/components";
 import { useStore } from "@/stores/store.js";
+import { storeToRefs } from "pinia";
 
 const store = useStore();
+const { transactions } = storeToRefs(store);
 
-const transactions = store.transactions;
-console.log(transactions);
+const transactionsList = transactions.value;
+console.log(transactionsList);
 
 const btnCreate = () => {};
 </script>

@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh lpr lFf">
-    <MyHeader :title="$route.matched[0].props.default.title"></MyHeader>
+    <MyHeader :title="title.value"></MyHeader>
     <q-page-container>
       <router-view
         class="layout-view col-grow"
@@ -14,6 +14,12 @@
 
 <script setup>
 import { MyFooter, MyHeader } from "@/components";
+import { computed } from "vue";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+const title = computed(() => route.meta.title);
+console.log(title.value);
 </script>
 
 <style scoped></style>

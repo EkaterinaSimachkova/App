@@ -21,3 +21,10 @@ background-position: center;
 background-repeat: no-repeat;
 background-size: cover;
 }
+
+.select {
+    min-width: 120px;
+}
+.input {
+    width: calc(100% - 140px);
+}

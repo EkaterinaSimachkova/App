@@ -20,14 +20,13 @@
 <script setup>
 import { MyButton, MyCard, MySearch } from "@/components";
 import { useStore } from "@/stores/store.js";
+import { storeToRefs } from "pinia";
 
 const store = useStore();
+const { trips } = storeToRefs(store);
 
-const trips = store.trips;
-console.log(trips);
-
-const trip = store.trips.filter((trip) => trip.id == "1");
-console.log(trip);
+const tripsList = trips.value;
+console.log(tripsList);
 
 const btnCreate = () => {};
 </script>

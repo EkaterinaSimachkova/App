@@ -34,14 +34,15 @@
 <script setup>
 import { MyCard, MyInput, MySelect } from "@/components";
 import { useStore } from "@/stores/store.js";
+import { storeToRefs } from "pinia";
 
 const store = useStore();
+const { trips } = storeToRefs(store);
 
-const options = store.getCurrenciesNames;
+const options = store.getCurrenciesNames();
 console.log(options);
 
-console.log(store.getTrips);
-const item = store.getTrips.at(-1);
+const item = trips.value.at(-1);
 
 const inputUpdate = (value) => {
   console.log(value);
