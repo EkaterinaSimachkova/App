@@ -12,14 +12,14 @@
 <script setup>
 import { MyTabs } from '@/components'
 import { ProfileTab, CategoriesTab, TripsTab } from '@/pages'
-
-
 import { ref } from 'vue'
+
 const tab = ref('profile')
 
 const tabUpdate = (value) => {
     tab.value = value
 }
+
 </script>
 
 <style scoped>

@@ -85,6 +85,12 @@ export const useStore = defineStore('store', () => {
     }
 
     
+    const updateUser = (login = null, password = null, name = null) => {
+        user.value.login = (login != null) ? login : user.value.login
+        user.value.password = (password != null) ? password : user.value.password
+        user.value.name = (name != null) ? name : user.value.name
+    }
+    
 
     /*
     const categories = ref([])

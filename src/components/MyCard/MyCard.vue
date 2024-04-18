@@ -13,7 +13,7 @@
         </div>
         <div>
           <div class="text-subtitle1 text-green">{{ item.budget }}</div>
-          <MyButton v-if="!withInfo" :type="'arrow'"></MyButton>
+          <MyButton v-if="!withInfo" :type="'arrow'" @btn-click="btnClick"></MyButton>
         </div>
       </div>
 
@@ -22,7 +22,7 @@
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </div>
-        <MyButton :type="'arrow'"></MyButton>
+        <MyButton :type="'arrow'" @btn-click="btnClick"></MyButton>
       </div>
     </q-card-section>
   </q-card>
@@ -40,6 +40,13 @@ const props = defineProps({
     require: true,
   },
 });
+
+const emit = defineEmits(['btnClick']);
+
+const btnClick = () => {
+    emit('btnClick');
+};
+
 </script>
 
 <style scoped>

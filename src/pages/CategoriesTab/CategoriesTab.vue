@@ -10,19 +10,26 @@
         ></MyItem>
       </q-list>
     </q-scroll-area>
+    <MyDialog 
+      :dialog="dialog" 
+      @btn-close="dialogVisible" 
+      :title="'Новая категория'" 
+      :type="'category'"
+    ></MyDialog>
     <q-page-sticky position="bottom-left" :offset="[10, 0]">
       <MyButton
         class="q-my-lg q-mx-sm"
         :type="'create'"
         :label="'Создать'"
-        @btn-click="btnCreate"
+        @btn-click="dialogVisible"
       ></MyButton>
     </q-page-sticky>
   </q-tab-panel>
 </template>
 
 <script setup>
-import { MyButton, MyItem, MySearch } from "@/components";
+import { MyButton, MyItem, MySearch, MyDialog } from "@/components";
+import { ref } from "vue";
 import { useStore } from "@/stores/store.js";
 import { storeToRefs } from "pinia";
 
@@ -30,9 +37,12 @@ const store = useStore();
 const { categories } = storeToRefs(store);
 
 const categoriesList = categories.value;
-console.log(categoriesList);
 
-const btnCreate = () => {};
+const dialog = ref(false);
+const dialogVisible = () => {
+  dialog.value = !dialog.value;
+};
+
 </script>
 
 <style scoped>

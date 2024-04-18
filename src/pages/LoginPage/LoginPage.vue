@@ -4,14 +4,14 @@
       :type="'placeholder'"
       :placeholder="'Ввведите логин'"
       :label="'Логин'"
-      @change-value="inputUpdate"
+      @change-value="user.login = $event"
     />
     <MyInput
       class="content"
       :type="'placeholder'"
       :placeholder="'Введите пароль'"
       :label="'Пароль'"
-      @change-value="inputUpdate"
+      @change-value="user.password = $event"
     />
     <q-space></q-space>
     <div class="column justify-center items-center">
@@ -34,15 +34,18 @@ import router from "@/router/index";
 
 const btnLogIn = () => {
   router.push(`/main`);
+  console.log(user);
 };
 
 const btnReg = () => {
   router.push(`/register`);
 };
 
-const inputUpdate = (value) => {
-  console.log(value);
+const user = {
+  login: null,
+  password: null
 };
+
 </script>
 
 <style scoped>

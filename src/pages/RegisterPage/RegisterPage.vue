@@ -4,21 +4,21 @@
       :type="'placeholder'"
       :placeholder="'Ввведите логин'"
       :label="'Логин'"
-      @change-value="inputUpdate"
+      @change-value="user.login = $event"
     />
     <MyInput
       class="content"
       :type="'placeholder'"
       :placeholder="'Введите пароль'"
       :label="'Пароль'"
-      @change-value="inputUpdate"
+      @change-value="user.password = $event"
     />
     <MyInput
       class="content"
       :type="'placeholder'"
       :placeholder="'Введите пароль еще раз'"
       :label="'Пароль'"
-      @change-value="inputUpdate"
+      @change-value="passwordChek = $event"
     />
     <q-space></q-space>
     <MyButton :label="'Зарегестрироваться'" @btn-click="btnReg"></MyButton>
@@ -27,14 +27,23 @@
 <script setup>
 import { MyButton, MyInput } from "@/components";
 import router from "@/router/index";
+import { ref } from 'vue'
 
 const btnReg = () => {
-  router.push(`/main`);
+  if (user.password != passwordChek.value) {
+    alert("Пароль не совпадает");
+  } else {
+    router.push(`/main`);
+    console.log(user);
+  };
 };
 
-const inputUpdate = (value) => {
-  console.log(value);
+const user = {
+  login: null,
+  password: null
 };
+const passwordChek = ref('');
+
 </script>
 
 <style scoped>

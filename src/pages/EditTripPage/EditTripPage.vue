@@ -1,29 +1,36 @@
 <template>
   <q-page>
-    <div class="my-image">
+    <div class="my-image_">
       <div class="row items-center q-pa-md">
         <q-space />
-        <MyButton :type="'close-bg'"></MyButton>
+        <MyButton 
+          :type="'close-bg'"
+          @btn-click="btnClose"
+        ></MyButton>
       </div>
 
-      <MyButton class="button" :type="'edit'" @btn-click="btnEdit"></MyButton>
+      <MyButton 
+        class="button_" 
+        :type="'edit'" 
+        @btn-click="btnEdit"
+      ></MyButton>
     </div>
 
-    <div class="my-layout">
+    <div class="my-layout_">
       <div class="q-mx-lg q-pt-xl">
         <div class="q-gutter-y-lg">
           <MyInput
             :label="'Название'"
-            @change-value="data['name'] = $event"
+            @change-value="data.name = $event"
           ></MyInput>
-          <div class="row q-gutter-x-sm">
+          <div class="row justify-between q-gutter-x-xs">
             <MyInput
-              class="input"
+              class="input_"
               :label="'Бюджет'"
-              @change-value="data['budget'] = +$event"
+              @change-value="data.budget = +$event"
             ></MyInput>
             <MySelect
-              class="select"
+              class="select_"
               :options="options"
               :label="'Валюта'"
               @change-value="selectUpdate"
@@ -32,21 +39,21 @@
           <div class="row no-wrap q-gutter-x-sm">
             <MyInput
               :label="'Дата начала'"
-              @change-value="data['start_date'] = $event"
+              @change-value="data.startDate = $event"
             ></MyInput>
             <MyInput
               :label="'Дата окончания'"
-              @change-value="data['end_date'] = $event"
+              @change-value="data.endDate = $event"
             ></MyInput>
           </div>
           <MyInput
             :label="'Лимит на день'"
-            @change-value="data['day_limit'] = +$event"
+            @change-value="data.dayLimit = +$event"
           ></MyInput>
           <MyInput
             :type="'textarea'"
             :label="'Описание'"
-            @change-value="data['description'] = $event"
+            @change-value="data.description = $event"
           ></MyInput>
         </div>
 
@@ -55,7 +62,10 @@
             :icon-name="'edit'"
             :label="'Управлять категориями'"
           ></MyButton>
-          <MyButton :label="'Сохранить'" @btn-click="btnSubmit"></MyButton>
+          <MyButton 
+            :label="'Сохранить'" 
+            @btn-click="btnSubmit"
+          ></MyButton>
         </div>
       </div>
     </div>
@@ -64,7 +74,9 @@
 
 <script setup>
 import { ref } from "vue";
+import router from "@/router/index";
 import { MyButton, MyInput, MySelect } from "@/components";
+import { useStore } from "@/stores/store.js";
 import postData from "@/queries/postData.js";
 
 const props = defineProps({
@@ -73,6 +85,12 @@ const props = defineProps({
     require: true,
   },
 });
+
+const store = useStore();
+
+const btnClose = () => {
+  router.back();
+};
 
 const btnEdit = () => {};
 
@@ -93,6 +111,7 @@ const btnSubmit = () => {
 };
 const options = store.getCurrenciesNames();
 console.log(options);
+
 </script>
 
 <style scoped>

@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh lpr lFf">
-    <MyHeader :title="title.value"></MyHeader>
+    <MyHeader :title="title"></MyHeader>
     <q-page-container>
       <router-view
         class="layout-view col-grow"
@@ -19,7 +19,6 @@ import { useRoute } from "vue-router";
 
 const route = useRoute();
 const title = computed(() => route.meta.title);
-console.log(title.value);
 </script>
 
 <style scoped></style>

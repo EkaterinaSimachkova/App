@@ -3,7 +3,10 @@
     <div class="my-image">
       <div class="row items-center q-pa-md">
         <q-space />
-        <MyButton :type="'close-bg'"></MyButton>
+        <MyButton 
+          :type="'close-bg'"
+          @btn-click="btnClose"
+        ></MyButton>
       </div>
     </div>
 
@@ -27,7 +30,10 @@
         <MyCarousel></MyCarousel>
 
         <div class="row justify-end items-center q-mt-xl q-gutter-x-sm">
-          <MyButton :icon-name="'edit'" :label="'Редактировать'"></MyButton>
+          <MyButton 
+            :icon-name="'edit'" 
+            :label="'Редактировать'"
+          ></MyButton>
           <MyButton
             class="btn"
             :label="'Удалить'"
@@ -41,6 +47,7 @@
 
 <script setup>
 import { ref } from "vue";
+import router from "@/router/index";
 import { MyButton, MyCarousel } from "@/components";
 
 const props = defineProps({
@@ -50,7 +57,12 @@ const props = defineProps({
   },
 });
 
+const btnClose = () => {
+  router.back();
+};
+
 const btnEdit = () => {};
+
 </script>
 
 <style scoped>

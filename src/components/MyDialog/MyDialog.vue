@@ -1,12 +1,13 @@
 <template>
-  <q-btn label="Click me" color="primary" @click="dialog = true" />
-
-  <q-dialog v-model="dialog" :maximized="maximize">
+  <q-dialog :model-value="dialog" :maximized="maximize">
     <q-card class="card">
       <q-card-section class="row items-center q-pb-none">
         <div class="text-h6">{{ title }}</div>
         <q-space />
-        <MyButton :type="'close'"></MyButton>
+        <MyButton 
+          :type="'close'" 
+          @btn-click="btnClose"
+        ></MyButton>
       </q-card-section>
 
       <q-card-section v-if="type == 'categories'">
@@ -23,7 +24,11 @@
             class="img"
             src="https://cdn.quasar.dev/img/parallax2.jpg"
           ></q-img>
-          <MyButton class="btn" :type="'edit'" @btn-click="btnEdit"></MyButton>
+          <MyButton 
+            class="btn_" 
+            :type="'edit'" 
+            @btn-click="btnEdit"
+          ></MyButton>
           <div class="q-gutter-y-lg">
             <MyInput
               class="input"
@@ -59,7 +64,7 @@
             ></MyInput>
             <div class="row q-gutter-x-xs">
               <MyInput
-                class="input"
+                class="content_"
                 :label="'Сумма'"
                 @change-value="inputUpdate"
               ></MyInput>
@@ -98,7 +103,11 @@
       <q-separator />
 
       <q-card-actions align="right">
-        <MyButton class="action" :label="'Сохранить'" :type="'save'"></MyButton>
+        <MyButton 
+          class="action" 
+          :label="'Сохранить'" 
+          :type="'save'"
+        ></MyButton>
         <MyButton v-if="type == 'category'"
           class="action"
           :label="'Удалить'"
@@ -108,6 +117,7 @@
           class="action"
           :label="'Отменить'"
           :type="'cancel'"
+          @btn-click="btnClose"
         ></MyButton>
       </q-card-actions>
     </q-card>
@@ -127,11 +137,19 @@ const props = defineProps({
     type: String,
     require: true,
   },
+  dialog: {
+    type: Boolean,
+    require: false,
+  },
 });
 
-const maximize = props.type == "transaction" ? true : false;
+const emit = defineEmits(['btnClose']);
 
-const dialog = ref(false);
+const btnClose = () => {
+    emit('btnClose')
+};
+
+const maximize = props.type == "transaction" ? true : false;
 
 const btnEdit = () => {};
 
@@ -145,7 +163,7 @@ const options = ["Google", "Facebook", "Twitter", "Apple", "Oracle"];
 <style scoped>
 .button {
   left: 12px;
-  bottom: 50px;
+  top: -50px;
 
   width: 40px;
   height: 40px;
@@ -163,7 +181,7 @@ const options = ["Google", "Facebook", "Twitter", "Apple", "Oracle"];
 
   border-radius: 25px;
 }
-.btn {
+.btn_ {
   left: 12px;
   bottom: 58px;
 
@@ -197,7 +215,7 @@ const options = ["Google", "Facebook", "Twitter", "Apple", "Oracle"];
 .select {
     min-width: 120px;
 }
-.input {
+.content_ {
     width: calc(100% - 130px);
 }
 </style>

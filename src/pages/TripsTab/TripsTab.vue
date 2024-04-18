@@ -3,7 +3,7 @@
     <MySearch class="q-my-sm"></MySearch>
     <q-scroll-area style="height: 550px">
       <div class="list">
-        <MyCard v-for="item in trips" :item="item"></MyCard>
+        <MyCard v-for="item in tripsList" :item="item"></MyCard>
       </div>
     </q-scroll-area>
     <q-page-sticky position="bottom-left" :offset="[10, 0]">
@@ -19,6 +19,7 @@
 
 <script setup>
 import { MyButton, MyCard, MySearch } from "@/components";
+import router from "@/router/index";
 import { useStore } from "@/stores/store.js";
 import { storeToRefs } from "pinia";
 
@@ -26,9 +27,11 @@ const store = useStore();
 const { trips } = storeToRefs(store);
 
 const tripsList = trips.value;
-console.log(tripsList);
 
-const btnCreate = () => {};
+const btnCreate = () => {
+  router.push(`/edit-trip`);
+};
+
 </script>
 
 <style scoped>
