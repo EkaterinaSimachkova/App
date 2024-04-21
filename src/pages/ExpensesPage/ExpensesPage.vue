@@ -3,14 +3,17 @@
     <MySearch class="q-my-md"></MySearch>
     <q-scroll-area style="height: 550px">
       <q-list class="list">
-        <MyItem v-for="item in transactionsList" :item="item" ></MyItem>
+        <MyItem v-for="item in transactions" 
+          :item="item" 
+          @click="$router.push(`/transaction/${item.id}`)"
+        ></MyItem>
       </q-list>
     </q-scroll-area>
     <MyDialog 
       :dialog="dialog" 
       @btn-close="dialogVisible" 
       :title="'Новая транзакция'" 
-      :type="'transaction'" 
+      :type="'transaction'"
     ></MyDialog>
     <q-page-sticky position="bottom-left" :offset="[10, 0]">
       <MyButton
@@ -32,8 +35,6 @@ import { storeToRefs } from "pinia";
 
 const store = useStore();
 const { transactions } = storeToRefs(store);
-
-const transactionsList = transactions.value;
 
 const dialog = ref(false);
 const dialogVisible = () => {

@@ -5,30 +5,41 @@
       v-model="slide"
       height="200px"
     >
-      <q-carousel-slide name="first" img-src="https://cdn.quasar.dev/img/mountains.jpg">
+      <q-carousel-slide v-for="item in tripCategories" :name="item.id" :img-src="getImage(item)">
         <div class="absolute-bottom custom-caption">
-          <div class="text-h6">First stop</div>
-          <div class="text-caption">Mountains</div>
-        </div>
-      </q-carousel-slide>
-      <q-carousel-slide name="second" img-src="https://cdn.quasar.dev/img/parallax1.jpg">
-        <div class="absolute-bottom custom-caption">
-          <div class="text-h6">Second stop</div>
-          <div class="text-caption">Famous City</div>
-        </div>
-      </q-carousel-slide>
-      <q-carousel-slide name="third" img-src="https://cdn.quasar.dev/img/parallax2.jpg">
-        <div class="absolute-bottom custom-caption">
-          <div class="text-h6">Third stop</div>
-          <div class="text-caption">Famous Bridge</div>
+          <div class="text-h6">{{ getName(item) }}</div>
+          <div class="text-caption">{{ item.limit }}</div>
         </div>
       </q-carousel-slide>
     </q-carousel>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-const slide = ref('first')
+import { ref } from 'vue';
+import { useStore } from "@/stores/store.js";
+import { storeToRefs } from "pinia";
+
+const store = useStore();
+
+const props = defineProps({
+  tripCategories: {
+    type: Object,
+    require: true,
+  },
+});
+
+const slide = ref(1);
+
+const getImage = (item) => {
+  const category = store.getCategoryById(item.categoryId);
+  return category.imageURL;
+};
+
+const getName = (item) => {
+  const category = store.getCategoryById(item.categoryId);
+  return category.name;
+};
+
 </script>
 
 <style scoped>

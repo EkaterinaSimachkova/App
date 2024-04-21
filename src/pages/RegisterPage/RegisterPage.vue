@@ -21,7 +21,10 @@
       @change-value="passwordChek = $event"
     />
     <q-space></q-space>
-    <MyButton :label="'Зарегестрироваться'" @btn-click="btnReg"></MyButton>
+    <MyButton 
+      :label="'Зарегестрироваться'" 
+      @btn-click="btnReg"
+    ></MyButton>
 </template>
 
 <script setup>

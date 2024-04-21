@@ -21,12 +21,14 @@
         <div class="q-gutter-y-lg">
           <MyInput
             :label="'Название'"
+            :text-value="(trip != undefined) ? trip.name : '' "
             @change-value="data.name = $event"
           ></MyInput>
           <div class="row justify-between q-gutter-x-xs">
             <MyInput
               class="input_"
               :label="'Бюджет'"
+              :text-value="(trip != undefined) ? trip.budget : '' "
               @change-value="data.budget = +$event"
             ></MyInput>
             <MySelect
@@ -39,20 +41,24 @@
           <div class="row no-wrap q-gutter-x-sm">
             <MyInput
               :label="'Дата начала'"
+              :text-value="(trip != undefined) ? trip.startDate : '' "
               @change-value="data.startDate = $event"
             ></MyInput>
             <MyInput
               :label="'Дата окончания'"
+              :text-value="(trip != undefined) ? trip.endDate : '' "
               @change-value="data.endDate = $event"
             ></MyInput>
           </div>
           <MyInput
             :label="'Лимит на день'"
+            :text-value="(trip != undefined) ? trip.dayLimit : '' "
             @change-value="data.dayLimit = +$event"
           ></MyInput>
           <MyInput
             :type="'textarea'"
             :label="'Описание'"
+            :text-value="(trip != undefined) ? trip.description : '' "
             @change-value="data.description = $event"
           ></MyInput>
         </div>
@@ -61,6 +67,7 @@
           <MyButton
             :icon-name="'edit'"
             :label="'Управлять категориями'"
+            @btn-click="dialogVisible"
           ></MyButton>
           <MyButton 
             :label="'Сохранить'" 
@@ -69,30 +76,39 @@
         </div>
       </div>
     </div>
+
+    <MyDialog 
+      :dialog="dialog" 
+      @btn-close="dialogVisible" 
+      :title="'Категории'" 
+      :type="'categories'" 
+    ></MyDialog>
   </q-page>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import router from "@/router/index";
-import { MyButton, MyInput, MySelect } from "@/components";
+import { MyButton, MyInput, MySelect, MyDialog } from "@/components";
 import { useStore } from "@/stores/store.js";
 import postData from "@/queries/postData.js";
+import { useRoute } from 'vue-router'
 
-const props = defineProps({
-  title: {
-    type: String,
-    require: true,
-  },
-});
-
+const route = useRoute();
 const store = useStore();
+
+const dialog = ref(false);
+const dialogVisible = () => {
+  dialog.value = !dialog.value;
+};
 
 const btnClose = () => {
   router.back();
 };
 
 const btnEdit = () => {};
+
+const trip = store.getTripById(route.params.id);
 
 const data = {
     name: null,
@@ -103,14 +119,12 @@ const data = {
     description: null,
 };
 
-console.log(data);
-
 const btnSubmit = () => {
     console.log(data);
     //postData('trips/2/edit', data).then();
 };
+
 const options = store.getCurrenciesNames();
-console.log(options);
 
 </script>
 

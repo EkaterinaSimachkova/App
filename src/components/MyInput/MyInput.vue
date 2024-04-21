@@ -49,7 +49,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
 
 const props = defineProps({
     type: {
@@ -63,16 +63,22 @@ const props = defineProps({
     placeholder: {
         type: String,
         require: false
+    },
+    textValue: {
+        type: String,
+        require: false,
+        default: ''
     }
-})
+});
 
-const text = ref('')
+const text = ref(props.textValue);
 
-const emit = defineEmits(['changeValue'])
+const emit = defineEmits(['changeValue']);
 
 const changeValue = () => {
-    emit('changeValue', text.value)
-}
+    emit('changeValue', text.value);
+};
+
 </script>
 
 <style scoped>

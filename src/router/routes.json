@@ -7,12 +7,12 @@
   "USER_PAGE_NAME": "user",
   "MAIN_PAGE_PATH": "/main",
   "MAIN_PAGE_NAME": "main",
-  "TRIP_PAGE_PATH": "/trip",
+  "TRIP_PAGE_PATH": "/trip/:id",
   "TRIP_PAGE_NAME": "trip",
-  "TRANSACTION_PAGE_PATH": "/transaction",
+  "TRANSACTION_PAGE_PATH": "/transaction/:id",
   "TRANSACTION_PAGE_NAME": "transaction",
   "EXPENSES_PAGE_PATH": "/expenses",
   "EXPENSES_PAGE_NAME": "expenses",
-  "EDIT_TRIP_PAGE_PATH": "/edit-trip",
+  "EDIT_TRIP_PAGE_PATH": "/edit-trip/:id",
   "EDIT_TRIP_PAGE_NAME": "edit-trip"
 }

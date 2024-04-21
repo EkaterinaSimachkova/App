@@ -56,15 +56,15 @@ const routes = [
     meta: { layout: { component: Default }, title: "Расходы" },
   },
   {
-    path: TRIP_PAGE_PATH,
-    name: TRIP_PAGE_NAME,
-    component: () => import("@/pages/TripPage"),
-    meta: { layout: { component: Plain } },
-  },
-  {
     path: TRANSACTION_PAGE_PATH,
     name: TRANSACTION_PAGE_NAME,
     component: () => import("@/pages/TransactionPage"),
+    meta: { layout: { component: Plain } },
+  },
+  {
+    path: TRIP_PAGE_PATH,
+    name: TRIP_PAGE_NAME,
+    component: () => import("@/pages/TripPage"),
     meta: { layout: { component: Plain } },
   },
   {

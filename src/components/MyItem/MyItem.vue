@@ -2,7 +2,7 @@
     <q-item v-if="type=='withAvatar'" clickable v-ripple class="item">
         <q-item-section avatar>
           <q-avatar>
-            <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+            <img :src="item.imageURL">
           </q-avatar>
         </q-item-section>
 

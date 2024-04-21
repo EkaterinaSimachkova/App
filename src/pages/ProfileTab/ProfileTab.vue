@@ -3,28 +3,35 @@
     <div class="column justify-center">
       <q-img
         class="image_"
-        src="https://cdn.quasar.dev/img/parallax2.jpg"
+        :src="user.imageURL"
       ></q-img>
-      <MyButton class="button" :type="'edit'" @btn-click="btnEdit"></MyButton>
+      <MyButton 
+        class="button" 
+        :type="'edit'" 
+        @btn-click="btnEdit"
+      ></MyButton>
     </div>
     <div class="info">
       <MyInput
         class="content"
         :type="'filled'"
         :label="'Имя'"
-        @change-value="user.name = $event"
+        :textValue="user.name"
+        @change-value="newUser.name = $event"
       ></MyInput>
       <MyInput
         class="content"
         :type="'filled'"
         :label="'Логин'"
-        @change-value="user.login = $event"
+        :textValue="user.login"
+        @change-value="newUser.login = $event"
       ></MyInput>
       <MyInput
         class="content"
         :type="'filled'"
         :label="'Пароль'"
-        @change-value="user.password = $event"
+        :textValue="user.password"
+        @change-value="newUser.password = $event"
       ></MyInput>
     </div>
     <MyButton 
@@ -38,14 +45,19 @@
 
 <script setup>
 import { MyButton, MyInput } from "@/components";
+import { useStore } from "@/stores/store.js";
+import { storeToRefs } from "pinia";
+
+const store = useStore();
+const { user } = storeToRefs(store);
 
 const btnEdit = () => {};
 
 const btnSave = () => {
-  console.log(user);
+  store.updateUser(newUser.login, newUser.password, newUser.name);
 };
 
-const user = {
+const newUser = {
   name: null,
   login: null,
   password: null,

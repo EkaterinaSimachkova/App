@@ -49,7 +49,7 @@ const options = store.getCurrenciesNames();
 
 const trip = trips.value.at(-1);
 const goToTrip = () => {
-  router.push(`/trip`);
+  router.push(`/trip/${trip.id}`);
 };
 
 const inputUpdate = (value) => {

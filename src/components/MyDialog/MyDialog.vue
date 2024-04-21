@@ -22,7 +22,7 @@
         <div class="column justify-center q-my-md">
           <q-img
             class="img"
-            src="https://cdn.quasar.dev/img/parallax2.jpg"
+            :src="(category != null) ? category.imageURL : 'https://cdn.quasar.dev/img/parallax2.jpg' "
           ></q-img>
           <MyButton 
             class="btn_" 
@@ -33,12 +33,14 @@
             <MyInput
               class="input"
               :label="'Название'"
+              :text-value="(category != null) ? category.name : '' "
               @change-value="inputUpdate"
             ></MyInput>
             <MyInput
               class="input"
               :type="'textarea'"
               :label="'Описание'"
+              :text-value="(category != null) ? category.description : '' "
               @change-value="inputUpdate"
             ></MyInput>
           </div>
@@ -49,7 +51,7 @@
         <div class="column justify-center q-mt-sm">
           <q-img
             class="image"
-            src="https://cdn.quasar.dev/img/parallax2.jpg"
+            :src="(transaction != null) ? transaction.imageURL : 'https://cdn.quasar.dev/img/parallax2.jpg' "
           ></q-img>
           <MyButton
             class="button"
@@ -60,12 +62,14 @@
             <MyInput
               class="content"
               :label="'Название'"
+              :text-value="(transaction != null) ? transaction.name : '' "
               @change-value="inputUpdate"
             ></MyInput>
             <div class="row q-gutter-x-xs">
               <MyInput
                 class="content_"
                 :label="'Сумма'"
+                :text-value="(transaction != null) ? transaction.cost : '' "
                 @change-value="inputUpdate"
               ></MyInput>
               <MySelect
@@ -78,6 +82,7 @@
             <MyInput
               class="content"
               :label="'Дата'"
+              :text-value="(transaction != null) ? transaction.date : '' "
               @change-value="inputUpdate"
             ></MyInput>
             <MySelect
@@ -94,6 +99,7 @@
               class="content"
               :type="'textarea'"
               :label="'Описание'"
+              :text-value="(transaction != null) ? transaction.description : '' "
               @change-value="inputUpdate"
             ></MyInput>
           </div>
@@ -108,16 +114,16 @@
           :label="'Сохранить'" 
           :type="'save'"
         ></MyButton>
-        <MyButton v-if="type == 'category'"
+        <MyButton v-if="type == 'category' && category != null"
           class="action"
           :label="'Удалить'"
           :type="'cancel'"
+          @btn-click="deleteCategory"
         ></MyButton>
         <MyButton v-else
           class="action"
           :label="'Отменить'"
           :type="'cancel'"
-          @btn-click="btnClose"
         ></MyButton>
       </q-card-actions>
     </q-card>
@@ -127,6 +133,7 @@
 <script setup>
 import { ref } from "vue";
 import { MyButton, MyInput, MyItem, MySelect } from "@/components";
+import { useStore } from "@/stores/store.js";
 
 const props = defineProps({
   title: {
@@ -140,6 +147,16 @@ const props = defineProps({
   dialog: {
     type: Boolean,
     require: false,
+  },
+  category: {
+    type: Object,
+    require: false,
+    default: null
+  },
+  transaction: {
+    type: Object,
+    require: false,
+    default: null
   },
 });
 
@@ -158,6 +175,13 @@ const inputUpdate = (value) => {
 };
 
 const options = ["Google", "Facebook", "Twitter", "Apple", "Oracle"];
+
+const store = useStore();
+
+const deleteCategory = () => {
+  store.deleteCategoryById(props.category.id);
+};
+
 </script>
 
 <style scoped>

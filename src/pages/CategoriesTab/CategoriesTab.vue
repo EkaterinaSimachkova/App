@@ -4,12 +4,20 @@
     <q-scroll-area style="height: 550px">
       <q-list class="list">
         <MyItem
-          v-for="item in categoriesList"
+          v-for="item in categories"
           :item="item"
           :type="'withAvatar'"
+          @click="dialogCategoryVisible(item)"
         ></MyItem>
       </q-list>
     </q-scroll-area>
+    <MyDialog 
+      :dialog="dialogCategory" 
+      @btn-close="dialogCategoryVisible(null)" 
+      :title="(category != null) ? category.name : '' " 
+      :type="'category'"
+      :category="category"
+    ></MyDialog>
     <MyDialog 
       :dialog="dialog" 
       @btn-close="dialogVisible" 
@@ -36,11 +44,16 @@ import { storeToRefs } from "pinia";
 const store = useStore();
 const { categories } = storeToRefs(store);
 
-const categoriesList = categories.value;
-
 const dialog = ref(false);
 const dialogVisible = () => {
   dialog.value = !dialog.value;
+};
+
+const category = ref(null);
+const dialogCategory = ref(false);
+const dialogCategoryVisible = (item) => {
+  category.value = (item != null) ? store.getCategoryById(item.id) : null;
+  dialogCategory.value = !dialogCategory.value;
 };
 
 </script>
