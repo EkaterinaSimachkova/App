@@ -18,10 +18,7 @@
       </div>
 
       <div v-if="withInfo" class="row no-wrap justify-between items-end">
-        <div class="text-caption text-grey-10">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </div>
+        <div class="text-caption text-grey-10">{{ item.description }}</div>
         <MyButton :type="'arrow'" @btn-click="btnClick"></MyButton>
       </div>
     </q-card-section>

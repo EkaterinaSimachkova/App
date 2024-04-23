@@ -24,7 +24,7 @@ export const useStore = defineStore('store', () => {
         {
             id: 2,
             name: 'food2',
-            description: 'null',
+            description: 'description',
             imageURL: "https://cdn.quasar.dev/img/parallax2.jpg",
         }
     ])
@@ -70,6 +70,17 @@ export const useStore = defineStore('store', () => {
             description: null,
             imageURL: "https://cdn.quasar.dev/img/parallax2.jpg",
             currencyId: 1,
+        },
+        {
+            id: 2,
+            name: 'London',
+            budget: 110000,
+            dayLimit: 1100,
+            startDate: null,
+            endDate: null,
+            description: null,
+            imageURL: "https://cdn.quasar.dev/img/parallax2.jpg",
+            currencyId: 1,
         }
     ])
 
@@ -99,24 +110,24 @@ export const useStore = defineStore('store', () => {
     ])
 
 
-    const getCategoriesNames = () => {
-        return categories.value.map(el => el.name)
+    const getCategoriesOptions = () => {
+        return categories.value.map(el => {return {label: el.name, value: el.id}})
     }
 
     const getCategoryById = (id) => {
         return categories.value.find(el => el.id == id)
     }
 
-    const getCurrenciesNames = () => {
-        return currencies.value.map(el => el.name)
+    const getCurrenciesOptions = () => {
+        return currencies.value.map(el => {return {label: el.name, value: el.id}})
     }
 
     const getCurrencyById = (id) => {
         return currencies.value.find(el => el.id == id)
     }
 
-    const getTripsNames = () => {
-        return trips.value.map(el => el.name)
+    const getTripsOptions = () => {
+        return trips.value.map(el => {return {label: el.name, value: el.id}})
     }
 
     const getTripById = (id) => {
@@ -125,6 +136,14 @@ export const useStore = defineStore('store', () => {
 
     const getTripCategoriesByTripId = (id) => {
         return tripsCategories.value.filter(el => el.tripId == id)
+    }
+
+    const getTripCategoryById = (id) => {
+        return tripsCategories.value.find(el => el.id == id)
+    }
+
+    const getTripCategoryByKey = (tripId, categoryId) => {
+        return tripsCategories.value.find(el => el.tripId == tripId && el.categoryId == categoryId)
     }
 
     const getTransactionById = (id) => {
@@ -138,6 +157,57 @@ export const useStore = defineStore('store', () => {
         user.value.name = (name != null) ? name : user.value.name
     }
 
+    const updateTrip = (newTrip) => {
+        const trip = getTripById(newTrip.id)
+        if (trip != undefined) {
+            trip.name = (newTrip.name != null) ? newTrip.name : trip.name
+            trip.budget = (newTrip.budget != null) ? newTrip.budget : trip.budget
+            trip.dayLimit = (newTrip.dayLimit != null) ? newTrip.dayLimit : trip.dayLimit
+            trip.startDate = (newTrip.startDate != null) ? newTrip.startDate : trip.startDate
+            trip.endDate = (newTrip.endDate != null) ? newTrip.endDate : trip.endDate
+            trip.description = (newTrip.description != null) ? newTrip.description : trip.description
+            trip.imageURL = (newTrip.imageURL != null) ? newTrip.imageURL : trip.imageURL
+            trip.currencyId = (newTrip.currencyId != null) ? newTrip.currencyId : trip.currencyId
+        } else {
+            trips.value.push(newTrip)
+        }
+    }
+
+    const updateCategory = (newCategory) => {
+        const category = getCategoryById(newCategory.id)
+        if (category != undefined) {
+            category.name = (newCategory.name != null) ? newCategory.name : category.name
+            category.description = (newCategory.description != null) ? newCategory.description : category.description
+            category.imageURL = (newCategory.imageURL != null) ? newCategory.imageURL : category.imageURL
+        } else {
+            categories.value.push(newCategory)
+        }
+    }
+
+    const updateTransaction = (newTransaction) => {
+        const transaction = getTransactionById(newTransaction.id)
+        if (transaction != undefined) {
+            transaction.name = (newTransaction.name != null) ? newTransaction.name : transaction.name
+            transaction.cost = (newTransaction.cost != null) ? newTransaction.cost : transaction.cost
+            transaction.date = (newTransaction.date != null) ? newTransaction.date : transaction.date
+            transaction.description = (newTransaction.description != null) ? newTransaction.description : transaction.description
+            transaction.imageURL = (newTransaction.imageURL != null) ? newTransaction.imageURL : transaction.imageURL
+            transaction.tripId = (newTransaction.tripId != null) ? newTransaction.tripId : transaction.tripId
+            transaction.categoryId = (newTransaction.categoryId != null) ? newTransaction.categoryId : transaction.categoryId
+            transaction.currencyId = (newTransaction.currencyId != null) ? newTransaction.currencyId : transaction.currencyId
+        } else {
+            transactions.value.push(newTransaction)
+        }
+    }
+
+    const addTripCategory = (newTripCategory) => {
+        tripsCategories.value.push(newTripCategory)
+    }
+
+    const updateTripCategory = (id, limit) => {
+        getTripCategoryById(id).limit = limit
+    }
+
     const deleteCategoryById = (id) => {
         categories.value = categories.value.filter(el => el.id != id)
     }
@@ -148,6 +218,10 @@ export const useStore = defineStore('store', () => {
 
     const deleteTransactionById = (id) => {
         transactions.value = transactions.value.filter(el => el.id != id)
+    }
+
+    const deleteTripCategoryByKey = (tripId, categoryId) => {
+        tripsCategories.value = tripsCategories.value.filter(el => (el.tripId != tripId || el.categoryId != categoryId))
     }
 
 
@@ -186,17 +260,25 @@ export const useStore = defineStore('store', () => {
         currencies,
         trips,
         transactions,
-        getCategoriesNames,
+        getCategoriesOptions,
         getCategoryById,
         getTripCategoriesByTripId,
-        getCurrenciesNames,
+        getTripCategoryById,
+        getTripCategoryByKey,
+        getCurrenciesOptions,
         getCurrencyById,
-        getTripsNames,
+        getTripsOptions,
         getTripById,
         getTransactionById,
         updateUser,
+        updateTrip,
+        updateCategory,
+        updateTransaction,
+        addTripCategory,
+        updateTripCategory,
         deleteCategoryById,
         deleteTransactionById,
-        deleteTripById
+        deleteTripById,
+        deleteTripCategoryByKey
     }
 })

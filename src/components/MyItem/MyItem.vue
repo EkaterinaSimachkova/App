@@ -16,14 +16,13 @@
         </q-item-section>   
     </q-item>
     
-    <q-item v-else-if="type=='withToggle'" tag="label" v-ripple class="item">
+    <q-item v-else-if="type=='withToggle'" clickable v-ripple class="item">
         <q-item-section>
             <q-item-label class="text-deep-purple">{{ item.name }}</q-item-label>
-            <q-item-label caption>{{ item.limit }}</q-item-label>
         </q-item-section>
 
         <q-item-section side>
-            <MyToggle/>
+            <MyToggle @change-value="changeToggle($event, item)" :toggle-value="toggleValue"/>
         </q-item-section>
     </q-item>
 
@@ -42,6 +41,7 @@
 <script setup>
 import { ref } from 'vue'
 import { MyToggle } from '@/components';
+
 const props = defineProps({
     type: {
         type: String,
@@ -50,8 +50,21 @@ const props = defineProps({
     item: {
         type: Object,
         require: true
+    },
+    tripCategory: {
+        type: Object,
+        require: false,
     }
-})
+});
+
+const emit = defineEmits(['changeToggle']);
+
+const changeToggle = (value, item) => {
+    emit('changeToggle', [value, item]);
+};
+
+const toggleValue = (props.tripCategory != undefined) ? true : false;
+
 </script>
 
 <style scoped>

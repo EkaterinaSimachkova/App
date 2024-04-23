@@ -16,11 +16,11 @@
   align-items: center;
   row-gap: 25px;
 
-  width: 90%;
+  width: 80%;
 }
 
 .bg {
-  background-image: url("https://cdn.quasar.dev/img/parallax2.jpg");
+  background-image: url("@/assets/image.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

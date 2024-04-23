@@ -12,9 +12,13 @@
 
       <q-card-section v-if="type == 'categories'">
         <q-list class="list">
-          <MyItem :type="'withToggle'"></MyItem>
-          <MyItem :type="'withToggle'"></MyItem>
-          <MyItem :type="'withToggle'"></MyItem>
+          <MyItem v-for="item in categories" 
+            :type="'withToggle'" 
+            :item="item" 
+            :trip-category="store.getTripCategoryByKey(props.tripId, item.id)"
+            @change-toggle="changeToggle"
+            @click="promtVisible(item)"
+          ></MyItem>
         </q-list>
       </q-card-section>
 
@@ -34,14 +38,14 @@
               class="input"
               :label="'Название'"
               :text-value="(category != null) ? category.name : '' "
-              @change-value="inputUpdate"
+              @change-value="newCategory.name = $event"
             ></MyInput>
             <MyInput
               class="input"
               :type="'textarea'"
               :label="'Описание'"
               :text-value="(category != null) ? category.description : '' "
-              @change-value="inputUpdate"
+              @change-value="newCategory.description = $event"
             ></MyInput>
           </div>
         </div>
@@ -63,44 +67,46 @@
               class="content"
               :label="'Название'"
               :text-value="(transaction != null) ? transaction.name : '' "
-              @change-value="inputUpdate"
+              @change-value="newTransaction.name = $event"
             ></MyInput>
             <div class="row q-gutter-x-xs">
               <MyInput
                 class="content_"
                 :label="'Сумма'"
                 :text-value="(transaction != null) ? transaction.cost : '' "
-                @change-value="inputUpdate"
+                @change-value="newTransaction.cost = $event"
               ></MyInput>
               <MySelect
                 class="select"
-                :options="options"
+                :options="currenciesOptions"
                 :label="'Валюта'"
-                @change-value="selectUpdate"
+                @change-value="newTransaction.currencyId = $event"
               ></MySelect>
             </div>
             <MyInput
               class="content"
               :label="'Дата'"
               :text-value="(transaction != null) ? transaction.date : '' "
-              @change-value="inputUpdate"
+              @change-value="newTransaction.date = $event"
             ></MyInput>
             <MySelect
               class="content"
-              :options="options"
+              :options="tripsOptions"
               :label="'Путешествие'"
+              @change-value="newTransaction.tripId = $event"
             ></MySelect>
             <MySelect
               class="content"
-              :options="options"
+              :options="categoriesOptions"
               :label="'Категория'"
+              @change-value="newTransaction.categoryId = $event"
             ></MySelect>
             <MyInput
               class="content"
               :type="'textarea'"
               :label="'Описание'"
               :text-value="(transaction != null) ? transaction.description : '' "
-              @change-value="inputUpdate"
+              @change-value="newTransaction.description = $event"
             ></MyInput>
           </div>
         </div>
@@ -108,11 +114,12 @@
 
       <q-separator />
 
-      <q-card-actions align="right">
+      <q-card-actions align="right" v-if="type != 'categories'">
         <MyButton 
           class="action" 
           :label="'Сохранить'" 
           :type="'save'"
+          @btn-click="btnSubmit"
         ></MyButton>
         <MyButton v-if="type == 'category' && category != null"
           class="action"
@@ -134,6 +141,7 @@
 import { ref } from "vue";
 import { MyButton, MyInput, MyItem, MySelect } from "@/components";
 import { useStore } from "@/stores/store.js";
+import { storeToRefs } from "pinia";
 
 const props = defineProps({
   title: {
@@ -158,9 +166,21 @@ const props = defineProps({
     require: false,
     default: null
   },
+  tripId: {
+    type: Number,
+    require: false,
+  }
 });
 
-const emit = defineEmits(['btnClose']);
+const emit = defineEmits(['btnClose', 'changeToggle', 'promtVisible']);
+
+const promtVisible = (item) => {
+    emit('promtVisible', item);
+};
+
+const changeToggle = ([value, item]) => {
+    emit('changeToggle', [value, item]);
+};
 
 const btnClose = () => {
     emit('btnClose')
@@ -168,15 +188,47 @@ const btnClose = () => {
 
 const maximize = props.type == "transaction" ? true : false;
 
+const store = useStore();
+const { categories, transactions } = storeToRefs(store);
+
+const currenciesOptions = store.getCurrenciesOptions();
+const categoriesOptions = store.getCategoriesOptions();
+const tripsOptions = store.getTripsOptions();
+
 const btnEdit = () => {};
 
-const inputUpdate = (value) => {
-  console.log(value);
+const categoryId = (props.category != null) ? props.category.id : categories.value.length + 1;
+const newCategory = {
+  id: categoryId,
+  name: null,
+  description: null,
+  imageURL: null,
+}
+
+const transactionId = (props.transaction != null) ? props.transaction.id : transactions.value.length + 1;
+const newTransaction = {
+  id: transactionId,
+  name: null,
+  cost: null,
+  date: null,
+  description: null,
+  imageURL: null,
+  tripId: null,
+  categoryId: null,
+  currencyId: null,
+}
+
+const btnSubmit = () => {
+  if (props.type == 'category') {
+    store.updateCategory(newCategory);
+    console.log(newCategory);
+  };
+  if (props.type == 'transaction') {
+    store.updateTransaction(newTransaction);
+    console.log(newTransaction);
+  };
+
 };
-
-const options = ["Google", "Facebook", "Twitter", "Apple", "Oracle"];
-
-const store = useStore();
 
 const deleteCategory = () => {
   store.deleteCategoryById(props.category.id);

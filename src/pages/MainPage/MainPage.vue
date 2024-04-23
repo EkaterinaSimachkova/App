@@ -45,7 +45,7 @@ import { storeToRefs } from "pinia";
 const store = useStore();
 const { trips } = storeToRefs(store);
 
-const options = store.getCurrenciesNames();
+const options = store.getCurrenciesOptions();
 
 const trip = trips.value.at(-1);
 const goToTrip = () => {

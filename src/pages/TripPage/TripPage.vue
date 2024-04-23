@@ -57,7 +57,8 @@ const route = useRoute();
 const store = useStore();
 
 const trip = store.getTripById(route.params.id);
-const tripCategories = store.getTripCategoriesByTripId(trip.id);
+const tripCategories = ref([]);
+tripCategories.value = store.getTripCategoriesByTripId(trip.id);
 
 const btnClose = () => {
   router.back();
@@ -68,7 +69,7 @@ const btnEdit = () => {
 };
 
 const btnDelete = () => {
-  store.deleteTripById(transaction.id);
+  store.deleteTripById(trip.id);
   router.back();
 };
 

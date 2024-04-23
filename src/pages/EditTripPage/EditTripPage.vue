@@ -22,44 +22,44 @@
           <MyInput
             :label="'Название'"
             :text-value="(trip != undefined) ? trip.name : '' "
-            @change-value="data.name = $event"
+            @change-value="newTrip.name = $event"
           ></MyInput>
           <div class="row justify-between q-gutter-x-xs">
             <MyInput
               class="input_"
               :label="'Бюджет'"
               :text-value="(trip != undefined) ? trip.budget : '' "
-              @change-value="data.budget = +$event"
+              @change-value="newTrip.budget = +$event"
             ></MyInput>
             <MySelect
               class="select_"
               :options="options"
               :label="'Валюта'"
-              @change-value="selectUpdate"
+              @change-value="newTrip.currencyId = $event"
             ></MySelect>
           </div>
           <div class="row no-wrap q-gutter-x-sm">
             <MyInput
               :label="'Дата начала'"
               :text-value="(trip != undefined) ? trip.startDate : '' "
-              @change-value="data.startDate = $event"
+              @change-value="newTrip.startDate = $event"
             ></MyInput>
             <MyInput
               :label="'Дата окончания'"
               :text-value="(trip != undefined) ? trip.endDate : '' "
-              @change-value="data.endDate = $event"
+              @change-value="newTrip.endDate = $event"
             ></MyInput>
           </div>
           <MyInput
             :label="'Лимит на день'"
             :text-value="(trip != undefined) ? trip.dayLimit : '' "
-            @change-value="data.dayLimit = +$event"
+            @change-value="newTrip.dayLimit = +$event"
           ></MyInput>
           <MyInput
             :type="'textarea'"
             :label="'Описание'"
             :text-value="(trip != undefined) ? trip.description : '' "
-            @change-value="data.description = $event"
+            @change-value="newTrip.description = $event"
           ></MyInput>
         </div>
 
@@ -79,27 +79,50 @@
 
     <MyDialog 
       :dialog="dialog" 
-      @btn-close="dialogVisible" 
       :title="'Категории'" 
       :type="'categories'" 
+      :trip-id="tripId"
+      @change-toggle="changeToggle"
+      @promt-visible="promtVisible"
+      @btn-close="dialogVisible" 
     ></MyDialog>
+
+    <MyPromt :promt="promt" @change-value="changeLimit" :trip-category-id="tripCategoryId"></MyPromt>
   </q-page>
 </template>
 
 <script setup>
 import { ref } from "vue";
 import router from "@/router/index";
-import { MyButton, MyInput, MySelect, MyDialog } from "@/components";
+import { MyButton, MyInput, MySelect, MyDialog, MyPromt } from "@/components";
 import { useStore } from "@/stores/store.js";
 import postData from "@/queries/postData.js";
 import { useRoute } from 'vue-router'
+import { storeToRefs } from "pinia";
 
 const route = useRoute();
 const store = useStore();
 
+const tripId = +route.params.id;
 const dialog = ref(false);
+const promt = ref(false);
+const tripCategoryId = ref('');
+
+const { tripsCategories } = storeToRefs(store);
+const options = store.getCurrenciesOptions();
+const trip = store.getTripById(tripId);
+
+
 const dialogVisible = () => {
   dialog.value = !dialog.value;
+};
+
+const promtVisible = (item) => {
+  const tripCategory = store.getTripCategoryByKey(tripId, item.id);
+  if (tripCategory != undefined) {
+    tripCategoryId.value = tripCategory.id;
+    promt.value = !promt.value;
+  };
 };
 
 const btnClose = () => {
@@ -108,23 +131,44 @@ const btnClose = () => {
 
 const btnEdit = () => {};
 
-const trip = store.getTripById(route.params.id);
-
-const data = {
-    name: null,
-    budget: null,
-    startDate: null,
-    endDate: null,
-    dayLimit: null,
-    description: null,
+const newTrip = {
+  id: tripId,
+  name: null,
+  budget: null,
+  dayLimit: null,
+  startDate: null,
+  endDate: null,
+  description: null,
+  imageURL: null,
+  currencyId: null,
 };
 
 const btnSubmit = () => {
-    console.log(data);
-    //postData('trips/2/edit', data).then();
+  store.updateTrip(newTrip);
+  console.log(newTrip);
+  router.back();
+  //postData('trips/2/edit', data).then();
 };
 
-const options = store.getCurrenciesNames();
+const changeToggle = ([value, category]) => {
+  if (value == true) {
+    store.addTripCategory({
+      id: tripsCategories.value.at(-1).id + 1,
+      limit: null,
+      tripId: tripId,
+      categoryId: category.id
+    });
+    console.log(tripsCategories.value);
+  } else {
+    store.deleteTripCategoryByKey(tripId, category.id);
+    console.log(tripsCategories.value);
+  };
+};
+
+const changeLimit = ([value, tripCategoryId]) => {
+  store.updateTripCategory(tripCategoryId, value);
+  console.log(store.tripsCategories);
+};
 
 </script>
 

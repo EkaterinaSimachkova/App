@@ -78,8 +78,10 @@ const route = useRoute();
 const store = useStore();
 
 const transaction = store.getTransactionById(route.params.id);
-const tripName = store.getTripById(transaction.tripId).name;
-const categoryName = store.getCategoryById(transaction.categoryId).name;
+const trip = store.getTripById(transaction.tripId);
+const tripName = (trip != undefined) ? trip.name : 'Нет';
+const category = store.getCategoryById(transaction.categoryId);
+const categoryName = (category != undefined) ? category.name : 'Нет';
 
 const dialog = ref(false);
 const dialogVisible = () => {

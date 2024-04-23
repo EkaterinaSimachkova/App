@@ -8,6 +8,8 @@
         v-model="model" 
         :options="options" 
         :label="label" 
+        emit-value
+        map-options
         transition-show="jump-up"
         transition-hide="jump-up"
         @update:model-value="changeValue"

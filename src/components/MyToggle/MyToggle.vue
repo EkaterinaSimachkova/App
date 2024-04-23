@@ -6,12 +6,28 @@
         size="md"
         checked-icon="check"
         unchecked-icon="clear"
+        @update:model-value="changeValue"
     />
 </template>
 
 <script setup>
-import { ref } from 'vue'
-const value = ref(false)
+import { ref } from 'vue';
+
+const props = defineProps({
+  toggleValue: {
+    type: Boolean,
+    require: true,
+  }
+});
+
+const value = ref(props.toggleValue);
+
+const emit = defineEmits(['changeValue']);
+
+const changeValue = () => {
+    emit('changeValue', value.value);
+};
+
 </script>
 
 <style scoped>

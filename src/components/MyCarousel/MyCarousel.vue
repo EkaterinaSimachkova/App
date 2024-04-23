@@ -24,7 +24,7 @@ const store = useStore();
 const props = defineProps({
   tripCategories: {
     type: Object,
-    require: true,
+    require: false,
   },
 });
 
