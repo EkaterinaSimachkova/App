@@ -41,6 +41,18 @@ export const useStore = defineStore('store', () => {
             limit: 200,
             tripId: 1,
             categoryId: 2,
+        },
+        {
+            id: 3,
+            limit: 1000,
+            tripId: 2,
+            categoryId: 1,
+        },
+        {
+            id: 4,
+            limit: 2000,
+            tripId: 2,
+            categoryId: 2,
         }
     ])
 
@@ -75,10 +87,10 @@ export const useStore = defineStore('store', () => {
             id: 2,
             name: 'London',
             budget: 110000,
-            dayLimit: 1100,
+            dayLimit: 2000,
             startDate: null,
             endDate: null,
-            description: null,
+            description: "Лучшее путешествие, случившееся со мной за последние пару лет и подарившее море впечатлений!",
             imageURL: "https://cdn.quasar.dev/img/parallax2.jpg",
             currencyId: 1,
         }
@@ -89,7 +101,7 @@ export const useStore = defineStore('store', () => {
             id: 1,
             name: 'dinner',
             cost: 1000,
-            date: null,
+            date: '2020-02-01',
             description: null,
             imageURL: "https://cdn.quasar.dev/img/parallax2.jpg",
             tripId: 1,
@@ -100,10 +112,32 @@ export const useStore = defineStore('store', () => {
             id: 2,
             name: 'dinner2',
             cost: 2000,
-            date: null,
+            date: '2020-01-02',
             description: null,
             imageURL: "https://cdn.quasar.dev/img/parallax2.jpg",
             tripId: 1,
+            categoryId: 1,
+            currencyId: 1,
+        },
+        {
+            id: 3,
+            name: 'dinner3',
+            cost: 3000,
+            date: '2020-02-01',
+            description: null,
+            imageURL: "https://cdn.quasar.dev/img/parallax2.jpg",
+            tripId: 2,
+            categoryId: 2,
+            currencyId: 1,
+        },
+        {
+            id: 4,
+            name: 'dinner4',
+            cost: 1000,
+            date: '2020-03-01',
+            description: null,
+            imageURL: "https://cdn.quasar.dev/img/parallax2.jpg",
+            tripId: 2,
             categoryId: 1,
             currencyId: 1,
         }
@@ -134,8 +168,21 @@ export const useStore = defineStore('store', () => {
         return trips.value.find(el => el.id == id)
     }
 
+    const getLastTrip = () => {
+        return trips.value.at(-1)
+    }
+
     const getTripCategoriesByTripId = (id) => {
         return tripsCategories.value.filter(el => el.tripId == id)
+    }
+
+    const getTripCategoriesNamesByTripId = (tripId) => {
+        let result = []
+        const categoriesId = getTripCategoriesByTripId(tripId).map(el => el.categoryId)
+        for (let categoryId of categoriesId) {
+            result.push(getCategoryById(categoryId).name)
+        }
+        return result
     }
 
     const getTripCategoryById = (id) => {
@@ -148,6 +195,37 @@ export const useStore = defineStore('store', () => {
 
     const getTransactionById = (id) => {
         return transactions.value.find(el => el.id == id)
+    }
+
+    const getTransactionsDatesByTripId = (tripId) => {
+        const set = new Set(transactions.value
+                                              .filter(el => el.tripId == tripId)
+                                              .map(el => el.date))
+        return Array.from(set).sort((a, b) => new Date(a) - new Date(b))
+    }
+
+    const getTransactionsCostByTripDays = (tripId) => {
+        let result = []
+        const days = getTransactionsDatesByTripId(tripId)
+        for (let day of days) {
+            result.push(transactions.value
+                            .filter(el => el.date == day && el.tripId == tripId)
+                            .map(el => el.cost)
+                            .reduce((sum, current) => sum + current, 0))
+        }
+        return result
+    }
+
+    const getTransactionsCostByTripCategories = (tripId) => {
+        let result = []
+        const tripCategories = getTripCategoriesByTripId(tripId)
+        for (let tripCategory of tripCategories) {
+            result.push(transactions.value
+                            .filter(el => el.categoryId == tripCategory.categoryId && el.tripId == tripCategory.tripId)
+                            .map(el => el.cost)
+                            .reduce((sum, current) => sum + current, 0))
+        }
+        return result
     }
 
     
@@ -263,13 +341,18 @@ export const useStore = defineStore('store', () => {
         getCategoriesOptions,
         getCategoryById,
         getTripCategoriesByTripId,
+        getTripCategoriesNamesByTripId,
         getTripCategoryById,
         getTripCategoryByKey,
         getCurrenciesOptions,
         getCurrencyById,
         getTripsOptions,
         getTripById,
+        getLastTrip,
         getTransactionById,
+        getTransactionsDatesByTripId,
+        getTransactionsCostByTripDays,
+        getTransactionsCostByTripCategories,
         updateUser,
         updateTrip,
         updateCategory,

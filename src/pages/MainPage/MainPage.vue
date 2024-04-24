@@ -43,11 +43,10 @@ import { useStore } from "@/stores/store.js";
 import { storeToRefs } from "pinia";
 
 const store = useStore();
-const { trips } = storeToRefs(store);
 
 const options = store.getCurrenciesOptions();
 
-const trip = trips.value.at(-1);
+const trip = store.getLastTrip();
 const goToTrip = () => {
   router.push(`/trip/${trip.id}`);
 };

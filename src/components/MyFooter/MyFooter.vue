@@ -3,9 +3,9 @@
       <q-toolbar>
         <q-tabs no-caps v-model="tab" class="justify-between" active-color="teal-10">
             <q-route-tab :ripple="false" to="/main" name="main" icon="home" label="Главная" />
-            <q-route-tab :ripple="false" to="/expenses" name="expenses" icon="receipt" label="Расходы" />
-            <q-tab :ripple="false" name="charts" icon="leaderboard" label="Аналитика" />
-            <q-route-tab :ripple="false" to="/user" name="user" icon="perm_identity" label="Профиль" />
+            <q-route-tab :ripple="false" to="/expenses" name="expenses" icon="local_atm" label="Расходы" />
+            <q-route-tab :ripple="false" to="/analytics" name="analytics" icon="leaderboard" label="Аналитика" />
+            <q-route-tab :ripple="false" to="/profile" name="profile" icon="perm_identity" label="Профиль" />
         </q-tabs>
       </q-toolbar>
     </q-footer>

@@ -19,7 +19,9 @@ import {
   EXPENSES_PAGE_PATH,
   EXPENSES_PAGE_NAME,
   EDIT_TRIP_PAGE_PATH,
-  EDIT_TRIP_PAGE_NAME
+  EDIT_TRIP_PAGE_NAME,
+  CHARTS_PAGE_PATH,
+  CHARTS_PAGE_NAME
 } from "./routes.json";
 
 // export const RouterViewComponent = RouterView;
@@ -42,6 +44,12 @@ const routes = [
     name: MAIN_PAGE_NAME,
     component: () => import("@/pages/MainPage"),
     meta: { layout: { component: Default }, title: "Главная" },
+  },
+  {
+    path: CHARTS_PAGE_PATH,
+    name: CHARTS_PAGE_NAME,
+    component: () => import("@/pages/ChartsPage"),
+    meta: { layout: { component: Default }, title: "Аналитика" },
   },
   {
     path: USER_PAGE_PATH,

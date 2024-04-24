@@ -1,6 +1,6 @@
 <template>
     <q-page>
-        <MyTabs @change-tab="tabUpdate"></MyTabs>
+        <MyTabs @change-tab="tabUpdate" :tabs="tabs"></MyTabs>
         <q-tab-panels v-model="tab" animated>
             <ProfileTab name="profile"></ProfileTab>
             <CategoriesTab name="categories"></CategoriesTab>
@@ -13,6 +13,21 @@
 import { MyTabs } from '@/components';
 import { ProfileTab, CategoriesTab, TripsTab } from '@/pages';
 import { ref } from 'vue';
+
+const tabs = [
+    {
+        name: 'profile',
+        label: 'Профиль'
+    },
+    {
+        name: 'categories',
+        label: 'Категории'
+    },
+    {
+        name: 'trips',
+        label: 'Путешествия'
+    },
+];
 
 const tab = ref('profile');
 

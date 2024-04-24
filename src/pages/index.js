@@ -9,6 +9,24 @@ import TransactionPage from "./TransactionPage";
 import TripPage from "./TripPage";
 import TripsTab from "./TripsTab";
 import UserPage from "./UserPage";
+import ChartsPage from "./ChartsPage";
+import LineChartTab from "./LineChartTab";
+import BarChartTab from "./BarChartTab";
 
 
-export { CategoriesTab, EditTripPage, ExpensesPage, LoginPage, MainPage, ProfileTab, RegisterPage, TransactionPage, TripPage, TripsTab, UserPage };
+export { 
+    CategoriesTab, 
+    EditTripPage, 
+    ExpensesPage, 
+    LoginPage, 
+    MainPage, 
+    ProfileTab, 
+    RegisterPage, 
+    TransactionPage, 
+    TripPage, 
+    TripsTab, 
+    UserPage, 
+    ChartsPage, 
+    LineChartTab, 
+    BarChartTab 
+};

@@ -3,8 +3,8 @@
   "LOGIN_PAGE_NAME": "login",
   "REGISTER_PAGE_PATH": "/register",
   "REGISTER_PAGE_NAME": "register",
-  "USER_PAGE_PATH": "/user",
-  "USER_PAGE_NAME": "user",
+  "USER_PAGE_PATH": "/profile",
+  "USER_PAGE_NAME": "profile",
   "MAIN_PAGE_PATH": "/main",
   "MAIN_PAGE_NAME": "main",
   "TRIP_PAGE_PATH": "/trip/:id",
@@ -14,5 +14,7 @@
   "EXPENSES_PAGE_PATH": "/expenses",
   "EXPENSES_PAGE_NAME": "expenses",
   "EDIT_TRIP_PAGE_PATH": "/edit-trip/:id",
-  "EDIT_TRIP_PAGE_NAME": "edit-trip"
+  "EDIT_TRIP_PAGE_NAME": "edit-trip",
+  "CHARTS_PAGE_PATH": "/analytics",
+  "CHARTS_PAGE_NAME": "analytics"
 }

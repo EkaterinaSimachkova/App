@@ -7,16 +7,20 @@
         indicator-color="deep-purple"
         @update:model-value="changeTab"
     >
-        <q-tab :ripple="false" name="profile" label="Профиль" />
-        <q-tab :ripple="false" name="categories" label="Категории" />
-        <q-tab :ripple="false" name="trips" label="Путешествия" />
+        <q-tab v-for="tab in tabs" :ripple="false" :name="tab.name" :label="tab.label" />
     </q-tabs>
-
 </template>
 
 <script setup>
 import { ref } from 'vue'
-const tab = ref('profile')
+
+const props = defineProps({
+    tabs: {
+        type: Array,
+        require: true
+    }
+})
+const tab = ref(props.tabs[0].name)
 
 const emit = defineEmits(['changeTab'])
 
