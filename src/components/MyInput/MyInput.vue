@@ -72,6 +72,7 @@ const props = defineProps({
 });
 
 const text = ref(props.textValue);
+console.log(text.value)
 
 const emit = defineEmits(['changeValue']);
 

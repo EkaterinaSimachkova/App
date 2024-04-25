@@ -13,6 +13,7 @@
         transition-show="jump-up"
         transition-hide="jump-up"
         @update:model-value="changeValue"
+        :readonly="disable"
     />
 </template>
 
@@ -27,10 +28,20 @@ const props = defineProps({
     label: {
         type: String,
         require: true
+    },
+    disable: {
+        type: Boolean,
+        require: false,
+        default: false
+    },
+    value: {
+        type: Object,
+        require: false,
+        default: null
     }
 })
 
-const model = ref(null)
+const model = ref(props.value)
 
 const emit = defineEmits(['changeValue'])
 

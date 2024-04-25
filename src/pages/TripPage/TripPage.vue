@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <div class="my-image">
+    <div class="my-image" :style="`background-image: url(${trip.imageURL});`">
       <div class="row items-center q-pa-md">
         <q-space />
         <MyButton 
@@ -25,7 +25,7 @@
 
         <div class="text-body1 text-grey-10 q-mb-xl">{{ trip.description }}</div>
 
-        <MyCarousel :trip-categories="tripCategories"></MyCarousel>
+        <MyCarousel v-if="tripCategories.length != 0" :trip-categories="tripCategories"></MyCarousel>
 
         <div class="row justify-end items-center q-mt-xl q-gutter-x-sm">
           <MyButton 
@@ -46,7 +46,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import router from "@/router/index";
 import { MyButton, MyCarousel } from "@/components";
 import { useStore } from "@/stores/store.js";
@@ -57,8 +57,8 @@ const route = useRoute();
 const store = useStore();
 
 const trip = store.getTripById(route.params.id);
-const tripCategories = ref([]);
-tripCategories.value = store.getTripCategoriesByTripId(trip.id);
+const tripCategories = computed(() => store.getTripCategoriesByTripId(trip.id));
+console.log(tripCategories)
 
 const btnClose = () => {
   router.back();

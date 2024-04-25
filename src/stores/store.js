@@ -10,7 +10,7 @@ export const useStore = defineStore('store', () => {
             login: 'Ekaterina',
             name: 'Kate',
             password: '0609',
-            imageURL: "https://cdn.quasar.dev/img/parallax2.jpg",
+            imageURL: "https://cdn.quasar.dev/img/parallax1.jpg",
         }
     )
 
@@ -25,7 +25,7 @@ export const useStore = defineStore('store', () => {
             id: 2,
             name: 'food2',
             description: 'description',
-            imageURL: "https://cdn.quasar.dev/img/parallax2.jpg",
+            imageURL: "https://cdn.quasar.dev/img/parallax1.jpg",
         }
     ])
 
@@ -64,7 +64,7 @@ export const useStore = defineStore('store', () => {
             symbol: null,
         },
         {
-            id: 2,
+            id: 'R01235',
             name: 'USD',
             fullName: null,
             symbol: null,
@@ -90,8 +90,8 @@ export const useStore = defineStore('store', () => {
             dayLimit: 2000,
             startDate: null,
             endDate: null,
-            description: "Лучшее путешествие, случившееся со мной за последние пару лет и подарившее море впечатлений!",
-            imageURL: "https://cdn.quasar.dev/img/parallax2.jpg",
+            description: "Лучшее путешествие, подарившее море впечатлений!",
+            imageURL: "https://cdn.quasar.dev/img/parallax1.jpg",
             currencyId: 1,
         }
     ])
@@ -114,7 +114,7 @@ export const useStore = defineStore('store', () => {
             cost: 2000,
             date: '2020-01-02',
             description: null,
-            imageURL: "https://cdn.quasar.dev/img/parallax2.jpg",
+            imageURL: "https://cdn.quasar.dev/img/parallax1.jpg",
             tripId: 1,
             categoryId: 1,
             currencyId: 1,
@@ -125,7 +125,7 @@ export const useStore = defineStore('store', () => {
             cost: 3000,
             date: '2020-02-01',
             description: null,
-            imageURL: "https://cdn.quasar.dev/img/parallax2.jpg",
+            imageURL: "https://cdn.quasar.dev/img/parallax1.jpg",
             tripId: 2,
             categoryId: 2,
             currencyId: 1,

@@ -1,6 +1,6 @@
 <template>
   <q-tab-panel>
-    <MySearch class="q-my-sm"></MySearch>
+    <!-- <MySearch class="q-my-sm"></MySearch> -->
     <q-scroll-area style="height: 550px">
       <q-list class="list">
         <MyItem

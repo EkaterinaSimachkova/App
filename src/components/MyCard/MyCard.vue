@@ -3,7 +3,7 @@
     <div v-if="withInfo" class="text-h5 text-bold text-deep-purple-10 q-ma-md">
       Последнее путешествие
     </div>
-    <q-img src="https://cdn.quasar.dev/img/parallax2.jpg" />
+    <q-img :src="item.imageURL" />
 
     <q-card-section>
       <div class="row justify-between">

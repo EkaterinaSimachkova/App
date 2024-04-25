@@ -7,7 +7,6 @@
 .my-image {
   height: 325px;
 
-  background-image: url("https://cdn.quasar.dev/img/parallax2.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

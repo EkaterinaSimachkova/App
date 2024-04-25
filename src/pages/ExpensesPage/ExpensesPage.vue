@@ -1,6 +1,6 @@
 <template>
   <q-page class="q-mx-sm" style="min-height: auto;">
-    <MySearch class="q-my-md"></MySearch>
+    <!-- <MySearch class="q-my-md"></MySearch> -->
     <q-scroll-area style="height: 550px">
       <q-list class="list">
         <MyItem v-for="item in transactions" 

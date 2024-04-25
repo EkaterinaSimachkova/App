@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <div class="my-image_">
+    <div class="my-image_" :style="`background-image: url(${trip.imageURL});`">
       <div class="row items-center q-pa-md">
         <q-space />
         <MyButton 
