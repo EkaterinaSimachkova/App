@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import { useStore } from "@/stores/store.js";
+import { useStore } from "@/store/store.js";
 import { storeToRefs } from "pinia";
 
 const store = useStore();

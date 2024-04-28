@@ -8,7 +8,7 @@
     />
     <MyInput
       class="content"
-      :type="'placeholder'"
+      :type="'placeholder-password'"
       :placeholder="'Введите пароль'"
       :label="'Пароль'"
       @change-value="user.password = $event"

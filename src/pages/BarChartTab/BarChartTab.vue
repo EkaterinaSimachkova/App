@@ -15,7 +15,7 @@
 <script setup>
   import * as echarts from 'echarts';
   import { ref, onMounted } from 'vue';
-  import { useStore } from "@/stores/store.js";
+  import { useStore } from "@/store/store.js";
   import { storeToRefs } from 'pinia';
 
   const store = useStore();
@@ -31,22 +31,39 @@
   const categoriesLimit = store.getTripCategoriesByTripId(lastTripId).map(el => el.limit);
 
   const barOption = ref({
+    grid: {
+        left: '15%',
+    },
+    tooltip: {
+        trigger: "axis",
+        axisPointer: {
+            type: "shadow"
+        }
+    },
     xAxis: {
         type: 'category',
-        data: categories
+        data: categories,
+        axisTick: {
+            interval: 0
+        },
+        axisLabel: {
+            interval: 0
+        }
     },
     yAxis: {
         type: 'value'
     },
     series: [
         {
-        data: categoriesCosts,
-        type: 'bar'
+            name: 'Потрачено',
+            data: categoriesCosts,
+            type: 'bar'
         },
         {
-        data: categoriesLimit,
-        type: 'line',
-        color: 'orange'
+            name: 'Лимит',
+            data: categoriesLimit,
+            type: 'line',
+            color: 'orange'
         }
     ]
   });

@@ -1,7 +1,7 @@
 <template>
   <q-page class="q-mx-sm" style="min-height: auto;">
     <!-- <MySearch class="q-my-md"></MySearch> -->
-    <q-scroll-area style="height: 550px">
+    <q-scroll-area style="height: calc(100vh - 180px)">
       <q-list class="list">
         <MyItem v-for="item in transactions" 
           :item="item" 
@@ -30,7 +30,7 @@
 import { MyButton, MySearch, MyItem, MyDialog } from "@/components";
 import router from "@/router/index";
 import { ref } from "vue";
-import { useStore } from "@/stores/store.js";
+import { useStore } from "@/store/store.js";
 import { storeToRefs } from "pinia";
 
 const store = useStore();

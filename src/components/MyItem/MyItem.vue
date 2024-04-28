@@ -2,7 +2,7 @@
     <q-item v-if="type=='withAvatar'" clickable v-ripple class="item">
         <q-item-section avatar>
           <q-avatar>
-            <img :src="item.imageURL">
+            <img :src="item.imageURL" style="object-fit: contain;">
           </q-avatar>
         </q-item-section>
 
@@ -29,7 +29,7 @@
     <q-item v-else clickable v-ripple class="item">
         <q-item-section>
             <q-item-label class="text-deep-purple">{{ item.name }}</q-item-label>
-            <q-item-label caption>{{ item.date }}  {{ item.cost }}</q-item-label>
+            <q-item-label caption>{{ date }} - {{ item.cost }}{{ currencySymbol }}</q-item-label>
         </q-item-section>
         
         <q-item-section side>
@@ -41,6 +41,7 @@
 <script setup>
 import { ref } from 'vue'
 import { MyToggle } from '@/components';
+import { useStore } from "@/store/store.js";
 
 const props = defineProps({
     type: {
@@ -56,6 +57,13 @@ const props = defineProps({
         require: false,
     }
 });
+
+const store = useStore();
+
+const date = (props.item.date != null) ? new Date(props.item.date).toLocaleDateString() : '';
+
+const currency = store.getCurrencyById(props.item.currencyId);
+const currencySymbol = (currency != undefined) ? currency.symbol : '';
 
 const emit = defineEmits(['changeToggle']);
 

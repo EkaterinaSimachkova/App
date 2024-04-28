@@ -12,7 +12,7 @@
           <div v-if="!withInfo" class="text-caption">{{ item.description }}</div>
         </div>
         <div>
-          <div class="text-subtitle1 text-green">{{ item.budget }}</div>
+          <div class="text-subtitle1 text-green">{{ item.budget }}{{ currencySymbol }}</div>
           <MyButton v-if="!withInfo" :type="'arrow'" @btn-click="btnClick"></MyButton>
         </div>
       </div>
@@ -27,6 +27,8 @@
 
 <script setup>
 import { MyButton } from "@/components";
+import { useStore } from "@/store/store.js";
+
 const props = defineProps({
   withInfo: {
     type: Boolean,
@@ -37,6 +39,11 @@ const props = defineProps({
     require: true,
   },
 });
+
+const store = useStore();
+
+const currency = store.getCurrencyById(props.item.currencyId);
+const currencySymbol = (currency != undefined) ? currency.symbol : '';
 
 const emit = defineEmits(['btnClick']);
 

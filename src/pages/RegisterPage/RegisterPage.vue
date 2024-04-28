@@ -8,14 +8,14 @@
     />
     <MyInput
       class="content"
-      :type="'placeholder'"
+      :type="'placeholder-password'"
       :placeholder="'Введите пароль'"
       :label="'Пароль'"
       @change-value="user.password = $event"
     />
     <MyInput
       class="content"
-      :type="'placeholder'"
+      :type="'placeholder-password'"
       :placeholder="'Введите пароль еще раз'"
       :label="'Пароль'"
       @change-value="passwordChek = $event"

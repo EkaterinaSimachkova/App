@@ -15,7 +15,7 @@
 <script setup>
   import * as echarts from 'echarts';
   import { ref, onMounted } from 'vue';
-  import { useStore } from "@/stores/store.js";
+  import { useStore } from "@/store/store.js";
   import { storeToRefs } from 'pinia';
 
   const store = useStore();
@@ -31,25 +31,43 @@
   const dayLimit = new Array(dates.length).fill(lastTrip.dayLimit);
 
   const lineOption = ref({
+    grid: {
+        left: '15%',
+    },
+    tooltip: {
+        trigger: "axis",
+        axisPointer: {
+            type: "line"
+        }
+    },
     xAxis: {
         type: 'category',
+        data: dates,
+        axisTick: {
+            alignWithLabel: true
+        },
         boundaryGap: false,
-        data: dates
+        axisLabel: {
+            margin: 15
+        }
     },
     yAxis: {
         type: 'value'
     },
     series: [
         {
-        data: daysCosts,
-        type: 'line',
-        areaStyle: {}
+            name: 'Потрачено',
+            data: daysCosts,
+            type: 'line',
+            areaStyle: {},
+            smooth: false
         },
         {
-        data: dayLimit,
-        type: 'line',
-        showSymbol: false,
-        color: 'orange'
+            name: 'Лимит',
+            data: dayLimit,
+            type: 'line',
+            showSymbol: false,
+            color: 'orange'
         }
     ]
   });

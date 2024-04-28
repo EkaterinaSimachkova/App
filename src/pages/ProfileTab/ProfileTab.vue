@@ -28,7 +28,7 @@
       ></MyInput>
       <MyInput
         class="content"
-        :type="'filled'"
+        :type="'filled-password'"
         :label="'Пароль'"
         :textValue="user.password"
         @change-value="newUser.password = $event"
@@ -45,7 +45,7 @@
 
 <script setup>
 import { MyButton, MyInput } from "@/components";
-import { useStore } from "@/stores/store.js";
+import { useStore } from "@/store/store.js";
 import { storeToRefs } from "pinia";
 
 const store = useStore();

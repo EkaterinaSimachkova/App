@@ -26,7 +26,7 @@
         <div class="column justify-center q-my-md">
           <q-img
             class="img"
-            :src="(category != null) ? category.imageURL : 'https://cdn.quasar.dev/img/parallax2.jpg' "
+            :src="(category != null) ? category.imageURL : 'https://avatars.mds.yandex.net/i?id=0e38338142f14770ce1e86098529106e_l-4907652-images-thumbs&n=13' "
           ></q-img>
           <MyButton 
             class="btn_" 
@@ -55,7 +55,7 @@
         <div class="column justify-center q-mt-sm">
           <q-img
             class="image"
-            :src="(transaction != null) ? transaction.imageURL : 'https://cdn.quasar.dev/img/parallax2.jpg' "
+            :src="(transaction != null) ? transaction.imageURL : 'https://avatars.mds.yandex.net/i?id=0e38338142f14770ce1e86098529106e_l-4907652-images-thumbs&n=13' "
           ></q-img>
           <MyButton
             class="button"
@@ -73,6 +73,7 @@
               <MyInput
                 class="content_"
                 :label="'Сумма'"
+                :type="'number'"
                 :text-value="(transaction != null) ? transaction.cost : '' "
                 @change-value="newTransaction.cost = $event"
               ></MyInput>
@@ -80,12 +81,14 @@
                 class="select"
                 :options="currenciesOptions"
                 :label="'Валюта'"
+                :value="(transaction != null) ? currenciesOptions.find(el => el.value == transaction.currencyId) : null "
                 @change-value="newTransaction.currencyId = $event"
               ></MySelect>
             </div>
             <MyInput
               class="content"
               :label="'Дата'"
+              :type="'date'"
               :text-value="(transaction != null) ? transaction.date : '' "
               @change-value="newTransaction.date = $event"
             ></MyInput>
@@ -93,12 +96,14 @@
               class="content"
               :options="tripsOptions"
               :label="'Путешествие'"
+              :value="(transaction != null) ? tripsOptions.find(el => el.value == transaction.tripId) : null "
               @change-value="newTransaction.tripId = $event"
             ></MySelect>
             <MySelect
               class="content"
               :options="categoriesOptions"
               :label="'Категория'"
+              :value="(transaction != null) ? categoriesOptions.find(el => el.value == transaction.categoryId) : null "
               @change-value="newTransaction.categoryId = $event"
             ></MySelect>
             <MyInput
@@ -140,7 +145,7 @@
 <script setup>
 import { ref } from "vue";
 import { MyButton, MyInput, MyItem, MySelect } from "@/components";
-import { useStore } from "@/stores/store.js";
+import { useStore } from "@/store/store.js";
 import { storeToRefs } from "pinia";
 
 const props = defineProps({
@@ -197,22 +202,22 @@ const tripsOptions = store.getTripsOptions();
 
 const btnEdit = () => {};
 
-const categoryId = (props.category != null) ? props.category.id : categories.value.length + 1;
 const newCategory = {
-  id: categoryId,
+  id: null,
   name: null,
   description: null,
   imageURL: null,
 }
 
 const transactionId = (props.transaction != null) ? props.transaction.id : transactions.value.length + 1;
+const transactionImage = (props.transaction != null) ? props.transaction.imageURL : 'https://avatars.mds.yandex.net/i?id=0e38338142f14770ce1e86098529106e_l-4907652-images-thumbs&n=13'
 const newTransaction = {
   id: transactionId,
   name: null,
   cost: null,
   date: null,
   description: null,
-  imageURL: null,
+  imageURL: transactionImage,
   tripId: null,
   categoryId: null,
   currencyId: null,
@@ -220,6 +225,8 @@ const newTransaction = {
 
 const btnSubmit = () => {
   if (props.type == 'category') {
+    newCategory.id = (props.category != null) ? props.category.id : categories.value.length + 1;
+    newCategory.imageURL = (props.category != null) ? props.category.imageURL : 'https://avatars.mds.yandex.net/i?id=0e38338142f14770ce1e86098529106e_l-4907652-images-thumbs&n=13'
     store.updateCategory(newCategory);
     console.log(newCategory);
   };
@@ -227,7 +234,6 @@ const btnSubmit = () => {
     store.updateTransaction(newTransaction);
     console.log(newTransaction);
   };
-
 };
 
 const deleteCategory = () => {

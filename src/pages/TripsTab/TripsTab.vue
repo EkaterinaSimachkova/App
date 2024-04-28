@@ -1,7 +1,7 @@
 <template>
   <q-tab-panel>
     <!-- <MySearch class="q-my-sm"></MySearch> -->
-    <q-scroll-area style="height: 550px">
+    <q-scroll-area style="height: calc(100vh - 250px)">
       <div class="list">
         <MyCard v-for="item in trips" 
           :item="item"
@@ -23,7 +23,7 @@
 <script setup>
 import { MyButton, MyCard, MySearch } from "@/components";
 import router from "@/router/index";
-import { useStore } from "@/stores/store.js";
+import { useStore } from "@/store/store.js";
 import { storeToRefs } from "pinia";
 
 const store = useStore();

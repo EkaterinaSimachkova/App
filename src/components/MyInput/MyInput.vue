@@ -9,6 +9,17 @@
         :placeholder="placeholder"
         @update:model-value="changeValue"
     />
+    <q-input v-else-if="type=='placeholder-password'"
+        color="deep-purple" 
+        label-color="deep-purple" 
+        rounded
+        outlined 
+        v-model="text"
+        :label="label" 
+        :placeholder="placeholder"
+        type="password"
+        @update:model-value="changeValue"
+    />
     <q-input v-else-if="type=='filled'"
         color="deep-purple" 
         label-color="deep-purple" 
@@ -18,6 +29,18 @@
         v-model="text"
         stack-label
         :label="label" 
+        @update:model-value="changeValue"
+    />
+    <q-input v-else-if="type=='filled-password'"
+        color="deep-purple" 
+        label-color="deep-purple" 
+        bg-color="teal-1"
+        rounded
+        outlined 
+        v-model="text"
+        stack-label
+        :label="label" 
+        type="password"
         @update:model-value="changeValue"
     />
     <q-input v-else-if="type=='borderless'"
@@ -35,6 +58,36 @@
         v-model="text"
         :label="label" 
         type="textarea"
+        @update:model-value="changeValue"
+    />
+    <q-input v-else-if="type=='converter'"
+        color="deep-purple" 
+        label-color="deep-purple" 
+        rounded
+        outlined 
+        :model-value="textValue"
+        :label="label" 
+        type="number"
+        @update:model-value="changeTextValue"
+    />
+    <q-input v-else-if="type=='date'"
+        color="deep-purple" 
+        label-color="deep-purple" 
+        rounded
+        outlined 
+        v-model="text"
+        :label="label" 
+        type="date"
+        @update:model-value="changeValue"
+    />
+    <q-input v-else-if="type=='number'"
+        color="deep-purple" 
+        label-color="deep-purple" 
+        rounded
+        outlined 
+        v-model="text"
+        :label="label" 
+        type="number"
         @update:model-value="changeValue"
     />
     <q-input v-else
@@ -72,12 +125,16 @@ const props = defineProps({
 });
 
 const text = ref(props.textValue);
-console.log(text.value)
 
 const emit = defineEmits(['changeValue']);
 
 const changeValue = () => {
     emit('changeValue', text.value);
+};
+
+const changeTextValue = (value) => {
+    props.textValue = value;
+    emit('changeValue', value);
 };
 
 </script>

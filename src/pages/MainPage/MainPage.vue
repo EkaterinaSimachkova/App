@@ -7,6 +7,7 @@
       <MyInput
         class="input"
         :label="'Сумма'"
+        :type="'converter'"
         :text-value="firstInputValue.toString()"
         @change-value="firstInputUpdate"
       ></MyInput>
@@ -20,6 +21,7 @@
       <MyInput
         class="input"
         :label="'Сумма'"
+        :type="'converter'"
         :text-value="secondInputValue.toString()"
         @change-value="secondInputUpdate"
       ></MyInput>
@@ -30,24 +32,27 @@
         @change-value="secondSelectUpdate"
       ></MySelect>
     </div>
-    <MyCard 
+    <MyCard v-if="trip != undefined"
       class="q-mt-xl" 
       :item="trip" 
       :with-info="true" 
       @btn-click="goToTrip"
     ></MyCard>
+    <div v-else class="text-h5 text-bold text-deep-purple-10 q-mx-md q-my-xl">
+      Путешествий не найдено!
+    </div>
   </q-page>
 </template>
 
 <script setup>
 import { MyCard, MyInput, MySelect } from "@/components";
 import router from "@/router/index";
-import { useStore } from "@/stores/store.js";
+import { useStore } from "@/store/store.js";
 import { storeToRefs } from "pinia";
 import { ref } from "vue";
-import getCurrenciesRates from "@/queries/getCurrenciesRates.js";
 
 const store = useStore();
+const { rates } = storeToRefs(store);
 
 const defaultCurrency = {
   label: 'RUR', 
@@ -60,40 +65,28 @@ const goToTrip = () => {
   router.push(`/trip/${trip.id}`);
 };
 
-let rates = [];
-getCurrenciesRates().then(res => rates = res);
-
 const firstInputValue = ref('');
 const secondInputValue = ref('');
 const secondSelectValue = ref('');
 
 const firstInputUpdate = (value) => {
-  console.log(value);
   firstInputValue.value = value;
-
   if (secondSelectValue.value != '') {
-    console.log(+firstInputValue.value / rates.find(el => el.id == secondSelectValue.value).value)
-    secondInputValue.value = (+firstInputValue.value / rates.find(el => el.id == secondSelectValue.value).value).toFixed(2);
+    secondInputValue.value = (+firstInputValue.value / rates.value.find(el => el.id == secondSelectValue.value).value).toFixed(2);
   }
 };
 
 const secondInputUpdate = (value) => {
-  console.log(value);
   secondInputValue.value = value;
-
   if (secondSelectValue.value != '') {
-    console.log(+secondInputValue.value * rates.find(el => el.id == secondSelectValue.value).value)
-    firstInputValue.value = (+secondInputValue.value * rates.find(el => el.id == secondSelectValue.value).value).toFixed(2);
+    firstInputValue.value = (+secondInputValue.value * rates.value.find(el => el.id == secondSelectValue.value).value).toFixed(2);
   }
 };
 
 const secondSelectUpdate = (value) => {
-  console.log(value);
   secondSelectValue.value = value;
-
   if (firstInputValue.value != '') {
-    console.log(+firstInputValue.value / rates.find(el => el.id == secondSelectValue.value).value)
-    secondInputValue.value = (+firstInputValue.value / rates.find(el => el.id == secondSelectValue.value).value).toFixed(2);
+    secondInputValue.value = (+firstInputValue.value / rates.value.find(el => el.id == secondSelectValue.value).value).toFixed(2);
   }
 };
 

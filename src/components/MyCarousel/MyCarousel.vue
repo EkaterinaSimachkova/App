@@ -16,19 +16,22 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useStore } from "@/stores/store.js";
+import { useStore } from "@/store/store.js";
 import { storeToRefs } from "pinia";
 
 const store = useStore();
 
 const props = defineProps({
   tripCategories: {
-    type: Object,
+    type: Array,
     require: false,
   },
 });
 
-const slide = ref(1);
+const slide = ref();
+if (props.tripCategories.length != 0) {
+  slide.value = props.tripCategories[0].id;
+}
 
 const getImage = (item) => {
   const category = store.getCategoryById(item.categoryId);

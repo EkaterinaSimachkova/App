@@ -1,26 +1,28 @@
 .button_ {
-left: 12px;
-top: 90px;
+    left: 12px;
+    top: 90px;
 
-width: 46px;
-height: 46px;
+    width: 46px;
+    height: 46px;
 
-/*opacity: 70%;*/
+    /*opacity: 70%;*/
 }
 
 .my-layout_ {
-position: absolute;
-top: 225px;
-background-color: white;
-border-radius: 50px 50px 0 0;
+    position: absolute;
+    top: 225px;
+    left: 0px;
+    right: 0px;
+    background-color: white;
+    border-radius: 50px 50px 0 0;
 }
 
 .my-image_ {
-height: 275px;
+    height: 275px;
 
-background-position: center;
-background-repeat: no-repeat;
-background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .select_ {
@@ -29,4 +31,8 @@ background-size: cover;
 
 .input_ {
     width: calc(100% - 130px);
+}
+
+.input_date {
+    width: 50%;
 }

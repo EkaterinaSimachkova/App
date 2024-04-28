@@ -10,6 +10,7 @@
             color="deep-purple" 
             label-color="deep-purple" 
             label="Лимит" 
+            type="number"
             dense 
             v-model="limit" 
             autofocus />
@@ -32,7 +33,7 @@ const props = defineProps({
     require: true,
   },
   tripCategoryId: {
-    type: Number,
+    type: String,
     require: true,
   }
 });

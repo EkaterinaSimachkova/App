@@ -16,16 +16,16 @@
           <div class="q-my-lg q-ml-none">
             <div class="text-h5 text-deep-purple-10 q-mb-sm">{{ trip.name }}</div>
             <div class="text-subtitle1 text-deep-purple">
-              {{ trip.startDate }} - {{ trip.endDate }}
+              {{ startDate }} - {{ endDate }}
             </div>
           </div>
 
-          <div class="text-h5 text-green">{{ trip.budget }}</div>
+          <div class="text-h5 text-green">{{ trip.budget }}{{ currencySymbol }}</div>
         </div>
 
         <div class="text-body1 text-grey-10 q-mb-xl">{{ trip.description }}</div>
 
-        <MyCarousel v-if="tripCategories.length != 0" :trip-categories="tripCategories"></MyCarousel>
+        <MyCarousel :trip-categories="tripCategories"></MyCarousel>
 
         <div class="row justify-end items-center q-mt-xl q-gutter-x-sm">
           <MyButton 
@@ -49,7 +49,7 @@
 import { ref, computed } from "vue";
 import router from "@/router/index";
 import { MyButton, MyCarousel } from "@/components";
-import { useStore } from "@/stores/store.js";
+import { useStore } from "@/store/store.js";
 import { storeToRefs } from "pinia";
 import { useRoute } from 'vue-router'
 
@@ -57,8 +57,14 @@ const route = useRoute();
 const store = useStore();
 
 const trip = store.getTripById(route.params.id);
-const tripCategories = computed(() => store.getTripCategoriesByTripId(trip.id));
-console.log(tripCategories)
+
+const startDate = (trip.startDate != null) ? new Date(trip.startDate).toLocaleDateString() : '';
+const endDate = (trip.endDate != null) ? new Date(trip.endDate).toLocaleDateString() : '';
+
+const currency = store.getCurrencyById(trip.currencyId);
+const currencySymbol = (currency != undefined) ? currency.symbol : '';
+
+const tripCategories = store.getTripCategoriesByTripId(trip.id);
 
 const btnClose = () => {
   router.back();

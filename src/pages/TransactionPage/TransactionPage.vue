@@ -8,7 +8,7 @@
       ></MyButton>
     </div>
 
-    <div class="row justify-between q-mx-lg q-my-md">
+    <div class="row justify-between q-ma-lg">
       <div class="column q-ma-none">
         <q-img
           class="image"
@@ -20,14 +20,14 @@
           @btn-click="btnEdit"
         ></MyButton>
       </div>
-      <div class="column items-end q-my-xl">
-        <div class="text-h5 text-deep-purple-10 q-mb-sm">{{ transaction.name }}</div>
-        <div class="text-h6 text-deep-purple q-mb-lg">{{ transaction.date }}</div>
-        <div class="text-h5 text-green">{{ transaction.cost }}</div>
+      <div class="info_ column items-end q-my-xl">
+        <div class="text-h5 text-deep-purple-10 q-mb-md text-right">{{ transaction.name }}</div>
+        <div class="text-h6 text-deep-purple q-mb-lg">{{ date }}</div>
+        <div class="text-h5 text-green">{{ transaction.cost }}{{ currencySymbol }}</div>
       </div>
     </div>
 
-    <div class="column q-my-lg q-mx-lg">
+    <div class="column q-ma-lg">
       <div class="row justify-between items-baseline q-mb-lg">
         <div class="text-subtitle1 text-grey-10">Путешествие</div>
         <div class="text-body1 text-deep-purple">{{ tripName }}</div>
@@ -67,9 +67,9 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { MyButton, MyDialog } from "@/components";
-import { useStore } from "@/stores/store.js";
+import { useStore } from "@/store/store.js";
 import { storeToRefs } from "pinia";
 import router from "@/router/index";
 import { useRoute } from 'vue-router'
@@ -78,10 +78,17 @@ const route = useRoute();
 const store = useStore();
 
 const transaction = store.getTransactionById(route.params.id);
-const trip = store.getTripById(transaction.tripId);
-const tripName = (trip != undefined) ? trip.name : 'Нет';
-const category = store.getCategoryById(transaction.categoryId);
-const categoryName = (category != undefined) ? category.name : 'Нет';
+
+const date = computed(() => (transaction.date != null) ? new Date(transaction.date).toLocaleDateString() : '');
+
+const currency = computed(() => store.getCurrencyById(transaction.currencyId));
+const currencySymbol = computed(() => (currency.value != undefined) ? currency.value.symbol : '');
+
+const trip = computed(() => store.getTripById(transaction.tripId));
+const tripName = computed(() => (trip.value != undefined) ? trip.value.name : 'Нет');
+
+const category = computed(() => store.getCategoryById(transaction.categoryId));
+const categoryName = computed(() => (category.value != undefined) ? category.value.name : 'Нет');
 
 const dialog = ref(false);
 const dialogVisible = () => {

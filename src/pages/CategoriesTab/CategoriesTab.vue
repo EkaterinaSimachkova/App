@@ -1,7 +1,7 @@
 <template>
   <q-tab-panel>
     <!-- <MySearch class="q-my-sm"></MySearch> -->
-    <q-scroll-area style="height: 550px">
+    <q-scroll-area style="height: calc(100vh - 240px)">
       <q-list class="list">
         <MyItem
           v-for="item in categories"
@@ -38,7 +38,7 @@
 <script setup>
 import { MyButton, MyItem, MySearch, MyDialog } from "@/components";
 import { ref } from "vue";
-import { useStore } from "@/stores/store.js";
+import { useStore } from "@/store/store.js";
 import { storeToRefs } from "pinia";
 
 const store = useStore();
@@ -49,10 +49,12 @@ const dialogVisible = () => {
   dialog.value = !dialog.value;
 };
 
-const category = ref(null);
+const category = ref();
 const dialogCategory = ref(false);
 const dialogCategoryVisible = (item) => {
-  category.value = (item != null) ? store.getCategoryById(item.id) : null;
+  if (item != null) {
+    category.value = store.getCategoryById(item.id);
+  }
   dialogCategory.value = !dialogCategory.value;
 };
 

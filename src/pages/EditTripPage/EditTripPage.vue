@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <div class="my-image_" :style="`background-image: url(${trip.imageURL});`">
+    <div class="my-image_" :style="`background-image: url(${(trip != undefined) ? trip.imageURL : 'https://avatars.mds.yandex.net/i?id=0e38338142f14770ce1e86098529106e_l-4907652-images-thumbs&n=13'});`">
       <div class="row items-center q-pa-md">
         <q-space />
         <MyButton 
@@ -28,6 +28,7 @@
             <MyInput
               class="input_"
               :label="'Бюджет'"
+              :type="'number'"
               :text-value="(trip != undefined) ? trip.budget : '' "
               @change-value="newTrip.budget = +$event"
             ></MyInput>
@@ -35,23 +36,29 @@
               class="select_"
               :options="options"
               :label="'Валюта'"
+              :value="(trip != null) ? options.find(el => el.value == trip.currencyId) : null "
               @change-value="newTrip.currencyId = $event"
             ></MySelect>
           </div>
           <div class="row no-wrap q-gutter-x-sm">
             <MyInput
+              class="input_"
               :label="'Дата начала'"
+              :type="'date'"
               :text-value="(trip != undefined) ? trip.startDate : '' "
               @change-value="newTrip.startDate = $event"
             ></MyInput>
             <MyInput
+              class="input_"
               :label="'Дата окончания'"
+              :type="'date'"
               :text-value="(trip != undefined) ? trip.endDate : '' "
               @change-value="newTrip.endDate = $event"
             ></MyInput>
           </div>
           <MyInput
             :label="'Лимит на день'"
+            :type="'number'"
             :text-value="(trip != undefined) ? trip.dayLimit : '' "
             @change-value="newTrip.dayLimit = +$event"
           ></MyInput>
@@ -87,7 +94,11 @@
       @btn-close="dialogVisible" 
     ></MyDialog>
 
-    <MyPromt :promt="promt" @change-value="changeLimit" :trip-category-id="tripCategoryId"></MyPromt>
+    <MyPromt 
+      :promt="promt" 
+      @change-value="changeLimit" 
+      :trip-category-id="tripCategoryId"
+    ></MyPromt>
   </q-page>
 </template>
 
@@ -95,7 +106,7 @@
 import { ref } from "vue";
 import router from "@/router/index";
 import { MyButton, MyInput, MySelect, MyDialog, MyPromt } from "@/components";
-import { useStore } from "@/stores/store.js";
+import { useStore } from "@/store/store.js";
 import postData from "@/queries/postData.js";
 import { useRoute } from 'vue-router'
 import { storeToRefs } from "pinia";
@@ -131,6 +142,7 @@ const btnClose = () => {
 
 const btnEdit = () => {};
 
+const tripImage = (trip != undefined) ? trip.imageURL : 'https://avatars.mds.yandex.net/i?id=0e38338142f14770ce1e86098529106e_l-4907652-images-thumbs&n=13'
 const newTrip = {
   id: tripId,
   name: null,
@@ -139,7 +151,7 @@ const newTrip = {
   startDate: null,
   endDate: null,
   description: null,
-  imageURL: null,
+  imageURL: tripImage,
   currencyId: null,
 };
 
