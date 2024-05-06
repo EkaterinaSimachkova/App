@@ -2,7 +2,7 @@
     <MyInput
       class="content"
       :type="'placeholder'"
-      :placeholder="'Ввведите логин'"
+      :placeholder="'Введите логин'"
       :label="'Логин'"
       @change-value="user.login = $event"
     />
@@ -22,7 +22,7 @@
     />
     <q-space></q-space>
     <MyButton 
-      :label="'Зарегестрироваться'" 
+      :label="'Зарегистрироваться'" 
       @btn-click="btnReg"
     ></MyButton>
 </template>

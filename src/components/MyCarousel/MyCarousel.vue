@@ -1,6 +1,9 @@
 <template>
     <q-carousel
       arrows
+      control-color="white"
+      control-text-color="grey-14"
+      control-type="regular"
       animated
       v-model="slide"
       height="200px"

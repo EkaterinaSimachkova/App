@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-export default async function getData(data) {
+export default async function getData(path) {
     try{
-        const response = await axios.get(`http://localhost:9090/${data}`)
+        const response = await axios.get(`http://localhost:9090/${path}`)
         return response.data
     } catch(error) {
         if (error.response) {
